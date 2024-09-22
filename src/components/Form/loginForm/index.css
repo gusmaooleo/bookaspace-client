@@ -1,2 +1,52 @@
 /* Set styles to LoginFormComponent here! */
 
+.login-form {
+  background-color: var(--primary);
+  border-radius: 1rem;
+  width: 60vmin;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-bottom: 3rem;
+  padding-top: 4rem;
+  color: var(--background);
+  z-index: 10000;
+
+  box-shadow: rgb(0, 0, 0, 0.25) 3px 10px 10px;
+}
+
+.custom-submit-login-button {
+  width: 25vmin;
+  height: 7vmin;
+  background-color: var(--green-tone);
+  margin-top: -1.5vmin;
+  border-radius: 1rem;
+  padding-top: .5rem;
+  font-weight: bold;
+  color: var(--background);
+  box-shadow: rgb(0, 0, 0, 0.1) 3px 3px 6px;
+  transition: 0.2s ease;
+}
+
+.custom-submit-login-button:hover {
+  background-color: #29AA51;
+}
+
+.dynamic-profile-pic {
+  height: 20vmin;
+  width: 20vmin;
+  margin-bottom: -8vmin;
+  z-index: 110111;
+}
+
+/* chakraui config */
+.chakra-checkbox__control {
+  background-color: var(--background);
+}
+
+.chakra-avatar__initials {
+  font-size: 5rem !important;
+}

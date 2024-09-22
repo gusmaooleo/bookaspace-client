@@ -1,11 +1,6 @@
 import './index.css'
 
-interface SpaceRegisterFormProps {
-  value: any,
-  method: () => void,
-}
-
-const SpaceRegisterFormComponent = ({ value, method }: SpaceRegisterFormProps) => {
+const SpaceRegisterFormComponent = () => {
   return (
     <>
       <p>SpaceRegisterFormComponent works!</p>

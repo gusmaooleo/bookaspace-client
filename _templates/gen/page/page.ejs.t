@@ -5,7 +5,7 @@ import './styles.css'
 
 const <%= name %> = () => {
   return (
-    <div>
+    <div className='page'>
       <p><%= name %> page works</p>
     </div>
   );
