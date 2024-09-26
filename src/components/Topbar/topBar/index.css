@@ -10,9 +10,15 @@
   color: var(--background);
   font-weight: 600;
   border-radius: .5rem;
+  padding: .2rem .5rem;
   transition: 0.2s ease;
 }
 
 .anchor-box:hover {
   background-color: #656161;
+}
+
+.user-text-box {
+  font-size: .9rem;
+  font-weight: 500;
 }

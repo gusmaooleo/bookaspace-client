@@ -2,9 +2,9 @@ import CustomInputBoxComponent from "@/components/Input/customInputBox/CustomInp
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
-import { Checkbox, FormControl, FormErrorMessage } from "@chakra-ui/react";
-import "./index.css";
+import { Checkbox, FormControl, FormErrorMessage, Input } from "@chakra-ui/react";
 import ProfilePicComponent from "@/components/Icons/profilePic/ProfilePicComponent";
+import "./index.css";
 
 
 const LoginFormComponent = () => {
@@ -46,12 +46,12 @@ const LoginFormComponent = () => {
   return (
     <div className="flex items-center flex-col">
       <div className="dynamic-profile-pic">
-        <ProfilePicComponent subject='none' />
+        <ProfilePicComponent subject={loginRef.current?.value || "none"} />
       </div>
       <form className="login-form">
         
         <div className="w-full text-center pb-8 pt-4">
-          <p className="font-semibold">Bem vindo, <span className="italic">Username</span>!</p>
+          <p className="font-semibold">Bem vindo, <span className="italic">{ loginRef.current?.value }</span>!</p>
         </div>
 
         <div className="flex flex-col gap-12">
