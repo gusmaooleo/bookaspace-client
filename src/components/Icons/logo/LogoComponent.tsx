@@ -5,7 +5,7 @@ import './index.css'
 const LogoComponent = () => {
   return (
     <a href=''>
-      <Image src='/images/logo.svg' alt='logo' width={60} height={60}/>
+      <Image src='/images/logo.svg' alt='logo' width={40} height={40}/>
     </a>
   );
 }

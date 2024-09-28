@@ -22,27 +22,11 @@ const CustomInputBoxComponent = ({ iconProp, placeholder, inputRef, type }: Cust
     }
   }, [])
 
-  const inputStyleProps: SystemStyleObject = {
-    bg: '#F4F7F5',
-    color: '#8C8C8C',
-    boxShadow: 'inset 0px 4px 8px rgba(0, 0, 0, 0.5)',
-    outline: 'none',
-    border: 'none',
-    fontWeight: '600',
-    _focus: {
-      border: 'none',
-      outline: 'none',
-    },
-    _placeholder: {
-      fontStyle: 'italic',
-    }
-  }
-
   if (type === 'text') {
     return (
       <InputGroup>
-        <Input 
-          sx={inputStyleProps} 
+        <Input
+          // sx={inputStyleProps} 
           placeholder={placeholder}
           ref={inputRef}
         />
@@ -55,7 +39,7 @@ const CustomInputBoxComponent = ({ iconProp, placeholder, inputRef, type }: Cust
     return (
       <InputGroup>
         <Input 
-          sx={inputStyleProps} 
+          // sx={inputStyleProps} 
           placeholder={placeholder}
           ref={inputRef}
           type={show ? 'text' : 'password'}
