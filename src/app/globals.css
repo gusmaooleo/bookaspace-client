@@ -10,7 +10,14 @@
   --foreground: #1e1e1e;
   --primary: #3B3939;
 
+  --button-secondary: #ffb800;
+
   --green-tone: #68d68a;
+  --yellow-tone: #ffe55f;
+  --red-tone: #f97e7a;
+
+  --route-page-box-height: 80vh;
+  --route-page-box-shadow: rgb(0, 0, 0, 0.1) 2px 4px 10px;
 }
 
 body {
@@ -27,7 +34,21 @@ body {
   }
 }
 
+h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
 .page {
   background-color: var(--background);
   height: calc(100vh - 4rem);
+}
+
+.light-icons {
+  color: var(--background);
+}
+
+.dark-icons {
+  color: var(--foreground);
 }

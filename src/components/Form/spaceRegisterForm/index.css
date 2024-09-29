@@ -1,2 +1,75 @@
 /* Set styles to SpaceRegisterFormComponent here! */
+.space-register-container {
+  display: flex;
+  height: 100%;
+}
 
+.space-register-form-container {
+  height: calc(var(--route-page-box-height) - 6.8vmin);
+  background-color: var(--foreground);
+  box-shadow: var(--route-page-box-shadow);
+  border-radius: .5rem;
+  width: 23vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between !important;
+
+  .p-calendar {
+    width: 100% !important;
+    .p-inputtext {
+      box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.5);
+      background-color: var(--background);
+      color: var(--foreground) !important;
+      font-weight: 600;
+      height: 2.5rem;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+  }
+  
+  .p-datepicker-trigger {
+    background-color: var(--primary);
+  }
+}
+
+.p-dropdown-panel  {
+  display: flex;
+  flex-direction: column !important;
+}
+
+.p-dropdown {
+  width: 100% !important;
+  height: 2.5rem;
+  box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.5);
+  background-color: var(--background);
+  color: #000 !important;
+  font-weight: 600;
+}
+
+.p-dropdown-header {
+  background-color: var(--primary);
+}
+
+.p-dropdown-items-wrapper {
+  display: flex;
+  height: 100% !important;
+  max-height: none !important;
+}
+
+.p-dropdown-item, .p-dropdown-items {
+  width: 100% !important;
+}
+
+.p-datepicker-buttonbar {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-around;
+  padding-right: 1rem;
+}
+
+.p-ripple-disabled, 
+.p-connected-overlay-enter-done {
+  display: flex;
+  height: 40vmin;
+}

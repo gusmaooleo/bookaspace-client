@@ -1,0 +1,92 @@
+/* Set styles to CalendarComponent here! */
+
+.fc-media-screen {
+  width: 60vw;
+  height: var(--route-page-box-height);
+}
+
+.fc-dayGridMonth-button:hover,
+.fc-timeGridWeek-button:hover,
+.fc-timeGridDay-button:hover {
+  filter: opacity(0.8) !important;
+}
+
+.fc-timeGridWeek-button {
+  border: none !important;
+  z-index: 0;
+}
+
+.fc-timeGridDay-button {
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  border-left: 1px solid rgb(88, 88, 88) !important;
+  z-index: 10;
+}
+
+.fc-dayGridMonth-button {
+  border-top: none !important;
+  border-right: 1px solid rgb(88, 88, 88) !important;
+  border-bottom: none !important;
+  border-left: none !important;
+  z-index: 10;
+}
+
+.fc-button {
+  transition: 0.2s ease;
+}
+
+.fc-button-primary {
+  background-color: var(--button-secondary) !important;
+  color: black !important;
+  font-weight: 600 !important;
+}
+
+.fc-button-primary:focus {
+  box-shadow: none !important;
+}
+
+.fc-button-active {
+  background-color: var(--primary) !important;
+  color: var(--background) !important;
+}
+
+.fc-today-button {
+  border: none !important;
+}
+
+
+.fc-prev-button,
+.fc-next-button {
+  background-color: var(--foreground) !important;
+  transition: 0.2s ease;
+}
+
+.fc-prev-button:hover,
+.fc-next-button:hover {
+  background-color: var(--primary) !important;
+}
+
+.fc-icon-chevron-left,
+.fc-icon-chevron-right {
+  color: var(--button-secondary);
+}
+
+.fc-toolbar-title {
+  color: var(--foreground);
+  font-weight: 700;
+}
+
+.fc-daygrid-day-frame {
+  cursor: pointer !important;
+  transition: 0.2s ease-in-out;
+}
+
+.fc-day-past:hover,
+.fc-day-future:hover {
+  background-color: rgb(231, 231, 231) !important;
+}
+
+.fc-dayGridMonth-view {
+  box-shadow: var(--route-page-box-shadow);
+}

@@ -27,6 +27,7 @@ const CustomInputBoxComponent = ({ iconProp, placeholder, inputRef, type }: Cust
       <InputGroup>
         <Input
           // sx={inputStyleProps} 
+          variant="light"
           placeholder={placeholder}
           ref={inputRef}
         />
@@ -40,6 +41,7 @@ const CustomInputBoxComponent = ({ iconProp, placeholder, inputRef, type }: Cust
       <InputGroup>
         <Input 
           // sx={inputStyleProps} 
+          variant="light"
           placeholder={placeholder}
           ref={inputRef}
           type={show ? 'text' : 'password'}

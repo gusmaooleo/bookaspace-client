@@ -1,4 +1,8 @@
  /* Set styles to agendaPage here! */
 
 
-
+.agenda-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
