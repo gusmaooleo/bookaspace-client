@@ -1,15 +1,13 @@
 ---
-to: app/hello.js
+to: src/services/<%= name %>Service.ts
 ---
-const hello = ```
-Hello!
-This is your first hygen template.
 
-Learn what it can do here:
+class <%= name %>Service {
+  constructor() {}
+}
 
-https://github.com/jondot/hygen
-```
-
-console.log(hello)
+export const <%= name %>Services = {
+  service: <%= name %>Service,
+}
 
 

@@ -9,6 +9,8 @@ import {
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
 import { useSpaceRegisterForm } from "@/hooks/useSpaceRegisterForm";
+import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import WarningTextComponent from "@/components/UserInterface/warningText/WarningTextComponent";
 import "./index.css";
 
 const SpaceRegisterFormComponent: React.FC = () => {
@@ -23,15 +25,22 @@ const SpaceRegisterFormComponent: React.FC = () => {
     setDesciption,
     canSubmit,
     clearForm,
-    options
+    options,
+    currentDateMessage
   } = useSpaceRegisterForm();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(space);
-    console.log(title);
-    console.log(selectedDate);
-    console.log(description);
+
+    const payload = {
+      space: space,
+      title: title,
+      description: description,
+      startDate: selectedDate[0], 
+      endDate: selectedDate[1], 
+    }
+
+    console.log(payload);
   };
 
   return (
@@ -52,9 +61,11 @@ const SpaceRegisterFormComponent: React.FC = () => {
               filter
               required
             />
-            <FormErrorMessage color={"#ffe55f"}>
-              Escolha um espaço
-            </FormErrorMessage>
+            <WarningTextComponent 
+              condition={space === null}
+              text={'Escolha um espaço'}
+              icon={faTriangleExclamation}
+            />
           </FormControl>
 
           <FormControl isInvalid={title === ""}>
@@ -64,15 +75,13 @@ const SpaceRegisterFormComponent: React.FC = () => {
               value={title}
               onChange={(e) => e.target.value === ' ' ? setTitle('') : setTitle(e.target.value)}
               required
+              maxLength={40}
             />
-            {title.length < 12 && (
-              <label style={{ color: "#ffe55f", fontSize: "14px" }}>
-                O título deve ter 12 ou mais caracteres.
-              </label>
-            )}
-            <FormErrorMessage fontStyle={"italic"}>
-              O título da solicitação é obrigatório
-            </FormErrorMessage>
+            <WarningTextComponent 
+              condition={title.length < 12}
+              text={'O título deve ter entre 12 e 40 caracteres'}
+              icon={faTriangleExclamation}
+            />
           </FormControl>
 
           <FormControl isInvalid={selectedDate === null}>
@@ -81,11 +90,24 @@ const SpaceRegisterFormComponent: React.FC = () => {
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.value)}
               selectionMode="range"
+              dateFormat="dd/mm/yy"
               showTime
               showButtonBar
               showIcon
               hourFormat="24"
             />
+
+            <WarningTextComponent 
+              condition={selectedDate !== null && (selectedDate[0] === null || selectedDate[1] === null)} 
+              text={'A data de reserva precisa tem um início e um fim'}
+              icon={faTriangleExclamation}
+            />
+            <WarningTextComponent 
+              condition={currentDateMessage !== ''}
+              text={currentDateMessage}
+              icon={faTriangleExclamation}
+            />
+
             <FormErrorMessage fontStyle={"italic"}>
               A data do período da reserva é obrigatória
             </FormErrorMessage>
@@ -97,15 +119,21 @@ const SpaceRegisterFormComponent: React.FC = () => {
               variant="light"
               value={description}
               onChange={(e) => setDesciption(e.target.value)}
+              boxShadow={'inset 0px 4px 8px rgba(0, 0, 0, 0.5)'}
               color={"#1c1c1c"}
               fontWeight={"600"}
+              resize={'none'}
+              h='150px'
             />
           </FormControl>
         </div>
 
         <div className="flex w-full justify-end gap-3">
           <Button variant="outline" onClick={clearForm}>Cancelar</Button>
-          <Button variant={canSubmit} type={canSubmit === 'submit' ? 'submit' : 'button'}>
+          <Button 
+            variant={canSubmit} 
+            type={canSubmit === 'submit' ? 'submit' : 'button'}
+          >
             Confirmar
           </Button>
         </div>

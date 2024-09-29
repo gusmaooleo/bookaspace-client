@@ -3,9 +3,9 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
-
-
+import { DateSelectArg } from '@fullcalendar/core/index.js';
 import './index.css'
+import { calendarService } from '@/services/calendarService';
 
 interface CalendarProps {
   value: any,
@@ -13,9 +13,17 @@ interface CalendarProps {
 }
 
 const CalendarComponent = (/* { value, method }: CalendarProps */) => {
+
+  const handleDateSelect = (selectInfo: DateSelectArg) => {
+    calendarService.setSelectedDate({
+      start: selectInfo.startStr,
+      end: selectInfo.endStr,
+      allDay: selectInfo.allDay,
+    })
+  }
   
   return (
-    <div className='flex calendar-overwrite' aria-hidden='true'>
+    <div className='flex calendar-overwrite' aria-pressed='false'>
       <FullCalendar
         plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]}
         initialView='dayGridMonth'
@@ -35,10 +43,10 @@ const CalendarComponent = (/* { value, method }: CalendarProps */) => {
           info.view.calendar.changeView('timeGridDay', info.dateStr);
         }}
         selectable={true}
+        select={handleDateSelect}
         selectMirror={true}
         dayMaxEvents={true}
         dayMaxEventRows={3}
-        // editable={true}
       />
     </div>
   );
