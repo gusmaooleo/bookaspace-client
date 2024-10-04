@@ -5,6 +5,7 @@ import {
   FormLabel,
   Input,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
@@ -28,19 +29,28 @@ const SpaceRegisterFormComponent: React.FC = () => {
     options,
     currentDateMessage
   } = useSpaceRegisterForm();
+  const toast = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const payload = {
-      space: space,
-      title: title,
-      description: description,
-      startDate: selectedDate[0], 
-      endDate: selectedDate[1], 
+    if (selectedDate[0] > new Date()) {
+      const payload = {
+        space: space,
+        title: title,
+        description: description,
+        startDate: selectedDate[0], 
+        endDate: selectedDate[1], 
+      }
+      console.log(payload);
+    } else {
+      toast({
+        title: 'Erro',
+        description: 'A data inicial deve ser posterior ao momento atual.',
+        status: 'error',
+        position: 'top-right'
+      })
     }
-
-    console.log(payload);
   };
 
   return (

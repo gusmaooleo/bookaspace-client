@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
+    "@chakra-ui/next-js": "^2.2.0",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
@@ -25,9 +27,11 @@
     "@reactivex/rxjs": "^6.6.7",
     "@types/fullcalendar": "^3.8.0",
     "date-fns": "^4.1.0",
+    "lucide-react": "^0.446.0",
     "framer-motion": "^11.5.4",
     "next": "14.2.12",
     "primeicons": "^7.0.0",
+    "primelocale": "^1.0.3",
     "primereact": "^10.8.3",
     "react": "^18.3.1",
     "react-dom": "^18",

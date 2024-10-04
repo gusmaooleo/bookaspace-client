@@ -5,7 +5,7 @@
 }
 
 .space-register-form-container {
-  height: calc(var(--route-page-box-height) - 6.8vmin);
+  height: calc(var(--route-page-box-height) - 6.8vh);
   background-color: var(--foreground);
   box-shadow: var(--route-page-box-shadow);
   border-radius: .5rem;

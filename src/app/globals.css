@@ -52,3 +52,9 @@ h2 {
 .dark-icons {
   color: var(--foreground);
 }
+
+.p-datepicker-title {
+  display: flex;
+  flex-direction: row;
+  gap: .5rem;
+}

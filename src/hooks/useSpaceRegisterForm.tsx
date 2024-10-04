@@ -11,7 +11,6 @@ export const useSpaceRegisterForm = () => {
   const [currentDateMessage, setCurrentDateMessage] = useState<string>('');
   const [description, setDesciption] = useState<string>("");
   const [canSubmit, setCanSubmit] = useState<string>("blocked");
-  const [a, setA] = useState<any>();
 
   // será trocado por um serviço
   const options: Space[] = [
