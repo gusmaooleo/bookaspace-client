@@ -93,10 +93,10 @@ const TabelaReutilizavel: React.FC<ReusableTableProps> = ({
                         <InputGroup w="200px" key={index}>
                             <Input
                                 placeholder={textButton.placeholder}
-                                bg={textButton.colorBg || "#E8E8E8"} // Usa o color passado ou o padrão
-                                color={textButton.colorText || "black"} // Usa o colorText passado ou o padrão
+                                bg={textButton.colorBg || "#E8E8E8"} 
+                                color={textButton.colorText || "black"}
                                 w="200px"
-                                
+
                             />
                             <InputRightElement>
                                 <FontAwesomeIcon icon={textButton.icon} color='#868686' />
@@ -153,15 +153,6 @@ const TabelaReutilizavel: React.FC<ReusableTableProps> = ({
             </Table>
 
             {renderPaginator()}
-
-            {/* <Paginator
-                first={first}
-                rows={rows}
-                totalRecords={totalRecords}
-                rowsPerPageOptions={rowsPerPageOptions}
-                onPageChange={onCustomPageChange}
-                template="PrevPageLink PageLinks NextPageLink"
-            /> */}
         </Box>
     );
 };

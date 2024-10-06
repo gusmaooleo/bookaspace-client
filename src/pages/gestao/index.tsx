@@ -22,7 +22,6 @@ const gestao = () => {
     { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
   ];
 
-  // Dados mockados para a lista de usuários
   const usuariosData = [
     { avatar: '👤', loginssons: 'Username', username: 'Admin', role: 'Admin' },
     { avatar: '👤', loginssons: 'John Doe', username: 'johndoe', role: 'Gestor' },
@@ -84,9 +83,6 @@ const gestao = () => {
         <Box flex={1} ml={4}>
           <Flex justifyContent="space-between" alignItems="center" mb={4}>
             <Heading as="h2" size="lg">Usuários</Heading>
-            {/* <Button leftIcon={<FontAwesomeIcon icon={faPlus} />} colorScheme="green">
-              Criar usuário
-            </Button> */}
           </Flex>
           <TabelaReutilizavel
             columns={usuariosColumns}
