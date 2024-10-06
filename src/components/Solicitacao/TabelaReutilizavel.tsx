@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Table,
     Thead,
@@ -7,22 +7,17 @@ import {
     Th,
     Td,
     Button,
-    Select,
-    Input,
     Box,
     Flex,
     Text,
     Badge,
-    chakra,
-    Heading,
-    IconButton,
     HStack,
-    VStack,
     InputGroup,
-    InputLeftElement,
+    Input,
     InputRightElement,
-    Menu, MenuButton, MenuList, MenuItem, Spacer,
+    Spacer,
 } from '@chakra-ui/react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faSearch,
@@ -30,45 +25,94 @@ import {
     faChevronRight,
     faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons';
-import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon } from '@chakra-ui/icons';
-import { ReusableTableProps } from './TabelaReutilizavel.d';
+
+import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';
+
+import { PageChangeEvent, ReusableTableProps } from './TabelaReutilizavel.d';
+
 import CustomSelect from './CustomSelect';
-import { text } from 'stream/consumers';
 
-const TabelaReutilizavel: React.FC<ReusableTableProps> = ({ columns, data, filters, textButtons, onRegister }) => {
+const TabelaReutilizavel: React.FC<ReusableTableProps> = ({
+    columns,
+    data,
+    filters,
+    textButtons,
+    onRegister,
+    totalRecords,
+    colorHeader ="#1E1E1E",
+    initialPage = 0,
+    rowsPerPageOptions = [10],
+    onPageChange
+}) => {
+    const [first, setFirst] = useState(initialPage * rowsPerPageOptions[0]);
+    const [rows, setRows] = useState(rowsPerPageOptions[0]);
+    const [currentPage, setCurrentPage] = useState(1);
 
+    useEffect(() => {
+        setCurrentPage(Math.floor(first / rows) + 1);
+    }, [first, rows]);
+
+    const onCustomPageChange = (event: PaginatorPageChangeEvent) => {
+        setFirst(event.first);
+        setRows(event.rows);
+        const pageChangeEvent: PageChangeEvent = {
+            first: event.first,
+            rows: event.rows,
+            page: event.page,
+            pageCount: Math.max(1, Math.ceil(totalRecords / event.rows))
+        };
+        onPageChange(pageChangeEvent);
+    };
+
+    const renderPaginator = () => {
+        const pageCount = Math.max(1, Math.ceil(totalRecords / rows));
+        return (
+            <Paginator
+                first={first}
+                rows={rows}
+                totalRecords={Math.max(totalRecords, 1)}
+                rowsPerPageOptions={rowsPerPageOptions}
+                onPageChange={onCustomPageChange}
+                template=" PrevPageLink PageLinks NextPageLink "
+                currentPageReportTemplate={`Página ${currentPage} de ${pageCount}`}
+            />
+        );
+    };
+    
     return (
-        <Box p = { 6 } bg = "white" borderRadius = "lg" boxShadow = "md">
-            <Box bg='#1E1E1E' w='100%' p={3} borderWidth='1px' borderTopRadius="lg">
+        <Box bg="white" borderRadius="lg" boxShadow="md">
+            <Box bg={colorHeader} w='100%' p={3} borderWidth='1px' borderTopRadius="lg" boxShadow="md">
                 <HStack spacing={4} mb={4}>
-                {filters.map((filter, index) => (
-                    <div key={index}>
-                        <CustomSelect options={filter.options} placeholder={filter.placeholder} />
-                    </div>
-                ))}
+                    {filters.map((filter, index) => (
+                        <div key={index}>
+                            <CustomSelect options={filter.options} placeholder={filter.placeholder} />
+                        </div>
+                    ))}
 
+                    {textButtons.map((textButton, index) => (
+                        <InputGroup w="200px" key={index}>
+                            <Input
+                                placeholder={textButton.placeholder}
+                                bg={textButton.colorBg || "#E8E8E8"} // Usa o color passado ou o padrão
+                                color={textButton.colorText || "black"} // Usa o colorText passado ou o padrão
+                                w="200px"
+                                
+                            />
+                            <InputRightElement>
+                                <FontAwesomeIcon icon={textButton.icon} color='#868686' />
+                            </InputRightElement>
+                        </InputGroup>
+                    ))}
 
-                {textButtons.map((textButton, index) => (
-                    <InputGroup w="200px">
-                    <Input placeholder={textButton.placeholder}
-                            bg="#E8E8E8"
-                            color="black" w="200px" />
-                    <InputRightElement>
-                            <FontAwesomeIcon icon={textButton.icon} color='#868686'/>
-                    </InputRightElement>
-                    </InputGroup>
-                ))}
-
-                <Spacer />
+                    <Spacer />
                     {onRegister && (
-                        <Button colorScheme="green" leftIcon={<FontAwesomeIcon icon={faSearch} />} onClick={onRegister.onClick}>
+                        <Button colorScheme={onRegister.colorBg || "green"} leftIcon={<FontAwesomeIcon icon={onRegister.icon || faSearch} />} onClick={onRegister.onClick} color={onRegister.colorText || "white"}>
                             {onRegister.label}
                         </Button>
                     )}
                 </HStack>
-                
             </Box>
-            
+
             <Table variant="simple">
                 <Thead>
                     <Tr>
@@ -78,44 +122,46 @@ const TabelaReutilizavel: React.FC<ReusableTableProps> = ({ columns, data, filte
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {data.map((row, rowIndex) => (
-                        <Tr key={rowIndex}>
-                            {columns.map((column, colIndex) => (
-                                <Td key={colIndex}>
-                                    {column.type === 'badge' ? (
-                                        <Badge colorScheme={row[column.key].color}>
-                                            {row[column.key].label}
-                                        </Badge>
-                                    ) : column.type === 'date' ? (
-                                        <Text fontSize="sm" color="gray.500">
-                                            {row[column.key]}
-                                        </Text>
-                                    ) : (
-                                        row[column.key]
-                                    )}
-                                </Td>
-                            ))}
+                    {data.length > 0 ? (
+                        data.slice(first, first + rows).map((row, rowIndex) => (
+                            <Tr key={rowIndex}>
+                                {columns.map((column, colIndex) => (
+                                    <Td key={colIndex}>
+                                        {column.type === 'badge' ? (
+                                            <Badge colorScheme={row[column.key].color}>
+                                                {row[column.key].label}
+                                            </Badge>
+                                        ) : column.type === 'date' ? (
+                                            <Text fontSize="sm" color="gray.500">
+                                                {row[column.key]}
+                                            </Text>
+                                        ) : (
+                                            row[column.key]
+                                        )}
+                                    </Td>
+                                ))}
+                            </Tr>
+                        ))
+                    ) : (
+                        <Tr>
+                            <Td colSpan={columns.length} textAlign="center">
+                                Nenhum dado disponível
+                            </Td>
                         </Tr>
-                    ))}
+                    )}
                 </Tbody>
             </Table>
 
-            <HStack justify="center" mt={4} spacing={2}>
-                <IconButton
-                    aria-label="Previous page"
-                    icon={<ChevronLeftIcon />}
-                    variant="ghost"
-                />
-                <Badge px={3} py={1} bg="gray.200" borderRadius="full">1</Badge>
-                <Badge px={3} py={1} bg="gray.200" borderRadius="full">2</Badge>
-                <Badge px={3} py={1} bg="gray.200" borderRadius="full">3</Badge>
-                <Badge px={3} py={1} bg="gray.200" borderRadius="full">...</Badge>
-                <IconButton
-                    aria-label="Next page"
-                    icon={<ChevronRightIcon />}
-                    variant="ghost"
-                />
-            </HStack>
+            {renderPaginator()}
+
+            {/* <Paginator
+                first={first}
+                rows={rows}
+                totalRecords={totalRecords}
+                rowsPerPageOptions={rowsPerPageOptions}
+                onPageChange={onCustomPageChange}
+                template="PrevPageLink PageLinks NextPageLink"
+            /> */}
         </Box>
     );
 };

@@ -1,22 +1,15 @@
 import { Box } from '@chakra-ui/react';
 import './styles.css'
 import TabelaReutilizavel from '@/components/Solicitacao/TabelaReutilizavel';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { faArrowDown, faArrowUp, faCheck, faPerson, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { icon } from '@fortawesome/fontawesome-svg-core';
+import { PageChangeEvent } from '@/components/Solicitacao/TabelaReutilizavel.d';
 
-const solicitacoes = () => {
-  
-  const columns = [
-    { header: 'Solicitante', key: 'solicitante' },
-    { header: 'Título da solicitação', key: 'titulo' },
-    { header: 'Período', key: 'periodo' },
-    { header: 'Status', key: 'status', type: 'badge' as const },
-  { header: 'Criado em', key: 'criadoEm', type: 'date' as const },
-  
-  ];
-
-  const data = [
+const Solicitacoes = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [data, setData] = useState([
     {
       solicitante: 'alice',
       titulo: 'Reserva UCSal',
@@ -24,6 +17,14 @@ const solicitacoes = () => {
       status: { label: 'Aguardando aprovação', color: 'yellow' },
       criadoEm: 'criado em: 10/10/2024 14:00',
     },
+  ]);
+
+  const columns = [
+    { header: 'Solicitante', key: 'solicitante' },
+    { header: 'Título da solicitação', key: 'titulo' },
+    { header: 'Período', key: 'periodo' },
+    { header: 'Status', key: 'status', type: 'badge' as const },
+    { header: 'Criado em', key: 'criadoEm', type: 'date' as const },
   ];
 
   const filters = [
@@ -36,18 +37,36 @@ const solicitacoes = () => {
     { placeholder: 'Solicitante', icon: faPerson },
   ];
 
-  const handleRegister = () => {
-    console.log('Registrar novo espaço');
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`/api/solicitacoes?page=${currentPage}&pageSize=${pageSize}`);
+      const result = await response.json();
+      setData(result.data);
+      setTotalRecords(result.totalRecords);
+    };
+
+    fetchData();
+  }, [currentPage, pageSize]);
+
+  function handlePageChange(event: PageChangeEvent) {
+    setCurrentPage(event.page);
+    setPageSize(event.rows);
+  }
 
   return (
-    <TabelaReutilizavel
-      columns={columns}
-      data={data}
-      filters={filters}
-      textButtons={textButtons}
-    />
+    <div>
+      <h2 className="mb-3">Históricos de solicitações</h2>
+      <TabelaReutilizavel
+        columns={columns}
+        data={data}
+        filters={filters}
+        textButtons={textButtons}
+        totalRecords={totalRecords}
+        initialPage={currentPage}
+        onPageChange={handlePageChange}
+      />
+    </div>
   );
 };
 
-export default solicitacoes;
+export default Solicitacoes;
