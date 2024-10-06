@@ -9,6 +9,7 @@
   --background: #f4f7f5;
   --foreground: #1e1e1e;
   --primary: #3B3939;
+  --surface-dark: #868686;
 
   --button-secondary: #ffb800;
 
@@ -34,8 +35,20 @@ body {
   }
 }
 
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
 h2 {
   font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+h3 {
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--foreground);
 }

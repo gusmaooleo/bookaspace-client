@@ -22,3 +22,12 @@
   color: var(--background);
   font-weight: 500;
 }
+
+.custom-route-indicator {
+  position: absolute;
+  top: 5.2vmin;
+  height: 0.3vmin;
+  width: 5vmin;
+  border-radius: 0.15vmin;
+  background-color: var(--button-secondary);
+}

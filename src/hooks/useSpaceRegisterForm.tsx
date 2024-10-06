@@ -14,9 +14,9 @@ export const useSpaceRegisterForm = () => {
 
   // será trocado por um serviço
   const options: Space[] = [
-    { name: "Sala b404", type: "Sala de aula" },
-    { name: "Sala b406", type: "Sala de aula" },
-    { name: "Teatro", type: "Auditório" },
+    { name: "Sala b404", type: 'CLASSROOM' },
+    { name: "Sala b406", type: 'CLASSROOM' },
+    { name: "Teatro", type: 'AUDITORIUM' },
   ];
 
   const clearForm = () => {

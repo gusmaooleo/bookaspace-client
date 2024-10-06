@@ -1,16 +1,22 @@
+import ProfilePicComponent from '@/components/Icons/profilePic/ProfilePicComponent';
 import LogoComponent from '@/components/Icons/logo/LogoComponent';
 import { Routes } from '@/utils/routes';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import React from 'react';
 import './index.css'
-import ProfilePicComponent from '@/components/Icons/profilePic/ProfilePicComponent';
+import { useRouter } from 'next/router';
 
 
 const TopBarComponent = () => {
   const [routes] = useState<[string, string][]>(
     () => Object.entries(Routes) as [string, string][]
   );
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(router.pathname)
+  }, [])
 
   return (
     <div className='flex flex-row w-screen items-center topbar-component h-16'>
@@ -19,9 +25,12 @@ const TopBarComponent = () => {
         <div className='flex items-center gap-6'>
           {
             routes.map(([key, value]) => (
-              <Link href={value} key={key} className='anchor-box text-box'>
-                <p>{ key }</p>
-              </Link>
+              <div className='flex flex-col items-center' key={key}>
+                <Link href={value} className='anchor-box text-box'>
+                  <p>{ key }</p>
+                </Link>
+                {router.pathname.includes(value) && <div className='custom-route-indicator'></div>}
+              </div>
             ))
           }
         </div>

@@ -1,0 +1,14 @@
+/* Set styles to GenericSubpageComponent here! */
+
+.table-container {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-auto-flow: row;
+  gap: 5vmin;
+  width: 100%;
+}
+
+.subpage-text {
+  color: var(--surface-dark);
+  font-weight: 500;
+}

@@ -64,11 +64,35 @@ const Button: ComponentStyleConfig = {
   }
 }
 
+const Badge: ComponentStyleConfig = {
+  variants: {
+    "APPROVED": {
+      backgroundColor: '#68D68A',
+    },
+    "REPROVED": {
+      backgroundColor: '#F97E7A',
+    },
+    "PENDING": {
+      backgroundColor: '#FFE55F',
+    },
+    "OUT_DEADLINE": {
+      backgroundColor: '#868686',
+    },
+    "AVAILABLE": {
+      backgroundColor: '#68D68A',
+    },
+    "UNAVAILABLE": {
+      backgroundColor: '#F97E7A',
+    }
+  }
+}
+
 
 const theme = extendTheme({
   components: {
     Input,
     Button,
+    Badge,
   },
 });
 
