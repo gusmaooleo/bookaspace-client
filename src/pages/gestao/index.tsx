@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Flex, IconButton } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrash, faEdit, faPerson, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faEdit, faCalendar, faUser } from '@fortawesome/free-solid-svg-icons';
 import TabelaReutilizavel from '@/components/Solicitacao/TabelaReutilizavel';
 import './styles.css';
 import { PageChangeEvent } from '@/components/Solicitacao/TabelaReutilizavel.d';
@@ -41,19 +41,19 @@ const gestao = () => {
 
   const usuariosColumns = [
     { header: '', key: 'avatar' },
-    { header: 'Usernames', key: 'loginssons' },
-    { header: 'Username', key: 'username' },
-    { header: 'Role', key: 'role' },
+    { header: 'Login', key: 'loginssons' },
+    { header: 'Nome do usuário', key: 'username' },
+    { header: 'Cargo', key: 'role' },
     { header: 'Ações', key: 'acoes' },
   ];
 
   const textButtonsEvents = [
-    { placeholder: 'Usuário', icon: faPerson },
+    { placeholder: 'Usuário', icon: faUser },
     { placeholder: 'Tipo de evento', icon: faCalendar },
   ];
 
   const textButtonsUser = [
-    { placeholder: 'Usuário', icon: faPerson, colorBg: 'black', colorText: 'white' },
+    { placeholder: 'Usuário', icon: faUser, variant: 'dark' },
   ];
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -69,7 +69,7 @@ const gestao = () => {
   };
 
   return (
-    <div className='page gestao-page gap-8'>
+    <div className='page p-20'>
       <Flex justifyContent="space-between" mb={8}>
         <Box flex={1} mr={4}>
           <h2>Rastreador de eventos</h2>
@@ -113,7 +113,7 @@ const gestao = () => {
             textButtons={textButtonsUser}
             totalRecords={usuariosData.length}
             initialPage={currentPage}
-            onRegister={{ label: 'Criar usuário', onClick: handleRegister, colorBg: 'white', icon: faPlus,colorText: 'black' }}
+            onRegister={{ label: 'Criar usuário', onClick: handleRegister, colorBg: 'white', icon: faPlus, colorText: 'black' }}
             rowsPerPageOptions={[10, 20, 30]}
             onPageChange={handlePageChange}
           />

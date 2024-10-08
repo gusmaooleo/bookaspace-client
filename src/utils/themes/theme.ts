@@ -60,6 +60,14 @@ const Button: ComponentStyleConfig = {
       border: 'none !important',
       color: "#F4F7F5 !important",
       cursor: 'default'
+    },
+    white: {
+      backgroundColor: '#fff !important',
+      border: 'none !important',
+      cursor: 'default',
+      _hover: {
+        backgroundColor: '#D1D1D1 !important',
+      }
     }
   }
 }

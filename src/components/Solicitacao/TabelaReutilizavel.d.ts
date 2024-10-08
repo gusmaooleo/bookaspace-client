@@ -17,6 +17,7 @@ export interface TextButton {
     icon: IconDefinition;
     colorBg?: string;
     colorText?: string;
+    variant?: string;
 }
 
 export interface RegisterButton {

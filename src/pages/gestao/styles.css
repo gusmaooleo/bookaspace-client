@@ -1,9 +1,7 @@
- /* Set styles to gestaoPage here! */
-
-
+/* Set styles to gestaoPage here! */
 
 .gestao-page {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

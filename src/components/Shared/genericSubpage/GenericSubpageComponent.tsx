@@ -1,8 +1,8 @@
 import { GenericSubpage } from "@/utils/interfaces/GenericSubpage";
 import { Header } from './HeaderSubpageComponent'
 import { ItemCell } from "./ItemCellSubpageComponent";
-import "./index.css";
 import { ActionsSubpageComponent } from "./ActionsSubpageComponent";
+import "./index.css";
 
 interface GenericSubpageProps {
   value: string;
