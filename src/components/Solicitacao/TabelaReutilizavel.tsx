@@ -8,7 +8,6 @@ import {
     Td,
     Button,
     Box,
-    Flex,
     Text,
     Badge,
     HStack,
@@ -21,9 +20,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faSearch,
-    faChevronLeft,
-    faChevronRight,
-    faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { Paginator, PaginatorPageChangeEvent } from 'primereact/paginator';

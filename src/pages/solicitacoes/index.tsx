@@ -1,9 +1,8 @@
-import { Box } from '@chakra-ui/react';
-import './styles.css'
 import TabelaReutilizavel from '@/components/Solicitacao/TabelaReutilizavel';
 import React, { useState, useEffect } from 'react';
-import { faArrowDown, faArrowUp, faCheck, faPerson, faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faArrowUp, faPerson, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { PageChangeEvent } from '@/components/Solicitacao/TabelaReutilizavel.d';
+import './styles.css'
 
 const Solicitacoes = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -29,7 +28,7 @@ const Solicitacoes = () => {
 
   const filters = [
     { placeholder: 'Ordenar por', options: [{ label: 'Mais recente', icon: faArrowUp }, { label: 'Mais antigo', icon: faArrowDown },] },
-    { placeholder: 'Status', options: [{ label: 'Aguardando aprovação', color: 'yellow' }, { label: 'Aprovada', color: 'green' }, { label: 'Reprovada', color: 'red' }, { label: 'Fora do prazo', color: 'gray' },] },
+    { placeholder: 'Status', options: [{ label: 'Aguardando aprovação', color: '#FFE55F' }, { label: 'Aprovada', color: '#68D68A' }, { label: 'Reprovada', color: '#F97E7A' }, { label: 'Fora do prazo', color: '#868686' },] },
   ];
 
   const textButtons = [
@@ -54,7 +53,7 @@ const Solicitacoes = () => {
   }
 
   return (
-    <div>
+    <div className='page p-20'>
       <h2 className="mb-3">Históricos de solicitações</h2>
       <TabelaReutilizavel
         columns={columns}

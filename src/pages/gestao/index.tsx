@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Flex, Heading, Input, Button, IconButton } from '@chakra-ui/react';
+import { Box, Flex, IconButton } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faPlus, faTrash, faEdit, faPerson, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash, faEdit, faPerson, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import TabelaReutilizavel from '@/components/Solicitacao/TabelaReutilizavel';
 import './styles.css';
 import { PageChangeEvent } from '@/components/Solicitacao/TabelaReutilizavel.d';
-import { faBuildingUser, faFlaskVial, faGraduationCap, faSchool } from '@fortawesome/free-solid-svg-icons';
 
 const gestao = () => {
 
@@ -26,6 +25,11 @@ const gestao = () => {
     { avatar: '👤', loginssons: 'Username', username: 'Admin', role: 'Admin' },
     { avatar: '👤', loginssons: 'John Doe', username: 'johndoe', role: 'Gestor' },
     { avatar: '👤', loginssons: 'Alice', username: 'alice', role: 'Professor' },
+    { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
+    { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
+    { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
+    { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
+    { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
     { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
   ];
 
@@ -68,7 +72,7 @@ const gestao = () => {
     <div className='page gestao-page gap-8'>
       <Flex justifyContent="space-between" mb={8}>
         <Box flex={1} mr={4}>
-          <Heading as="h2" size="lg" mb={4}>Rastreador de eventos</Heading>
+          <h2>Rastreador de eventos</h2>
           <TabelaReutilizavel
             columns={eventosColumns}
             data={eventosData}
@@ -81,9 +85,7 @@ const gestao = () => {
           />
         </Box>
         <Box flex={1} ml={4}>
-          <Flex justifyContent="space-between" alignItems="center" mb={4}>
-            <Heading as="h2" size="lg">Usuários</Heading>
-          </Flex>
+          <h2>Rastreador de eventos</h2>
           <TabelaReutilizavel
             columns={usuariosColumns}
             data={usuariosData.map(user => ({

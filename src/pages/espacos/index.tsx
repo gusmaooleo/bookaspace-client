@@ -74,7 +74,7 @@ const espacos = () => {
   }
 
   return (
-    <div>
+    <div className='page p-20'>
       <h2 className="mb-3">Registro de espaços</h2>
       <TabelaReutilizavel
         columns={columns}
