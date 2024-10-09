@@ -1,5 +1,5 @@
-import CalendarComponent from '@/components/Calendar/calendar/CalendarComponent';
 import SpaceRegisterFormComponent from '@/components/Form/spaceRegisterForm/SpaceRegisterFormComponent';
+import CalendarComponent from '@/components/Calendar/calendar/CalendarComponent';
 import './styles.css'
 
 const Agenda = () => {

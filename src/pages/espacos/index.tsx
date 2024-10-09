@@ -1,8 +1,8 @@
-import TabelaReutilizavel from '@/components/Solicitacao/TabelaReutilizavel';
 import React, { useState, useEffect } from 'react';
 import { faAdd, faBuildingUser, faFlaskVial, faGraduationCap, faSchool } from '@fortawesome/free-solid-svg-icons';
-import { PageChangeEvent } from '@/components/Solicitacao/TabelaReutilizavel.d';
+import { PageChangeEvent } from '@/utils/interfaces/ReusableTable';
 import { Space } from '@/utils/interfaces/Space';
+import TabelaReutilizavel from '@/components/Shared/genericTable/ReusableTable';
 import Database from '@/utils/Database';
 import './styles.css'
 
@@ -64,6 +64,7 @@ const espacos = () => {
         totalRecords={totalRecords}
         initialPage={currentPage}
         onPageChange={handlePageChange}
+        redirectRow={true}
       />
     </div>
   );

@@ -60,7 +60,7 @@ const SpaceRegisterFormComponent: React.FC = () => {
         className="space-register-form-container p-8"
         onSubmit={handleSubmit}
       >
-        <div className="flex flex-col items-center gap-6 text-[#f4f7f5]">
+        <div className="flex flex-col items-center gap-[2vmin] text-[#f4f7f5]">
           <FormControl isInvalid={space === null}>
             <FormLabel>Espaço</FormLabel>
             <Dropdown
@@ -133,7 +133,7 @@ const SpaceRegisterFormComponent: React.FC = () => {
               color={"#1c1c1c"}
               fontWeight={"600"}
               resize={'none'}
-              h='150px'
+              h='10vmin'
             />
           </FormControl>
         </div>

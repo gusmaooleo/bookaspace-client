@@ -1,4 +1,4 @@
-import TabelaReutilizavel from "@/components/Solicitacao/TabelaReutilizavel";
+import TabelaReutilizavel from "@/components/Shared/genericTable/ReusableTable";
 import React, { useState, useEffect } from "react";
 import {
   faArrowDown,
@@ -6,7 +6,7 @@ import {
   faUser,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import { PageChangeEvent } from "@/components/Solicitacao/TabelaReutilizavel.d";
+import { PageChangeEvent } from "@/utils/interfaces/ReusableTable";
 import { SpaceRequest } from "@/utils/interfaces/SpaceRequest";
 import { formatDate } from "@/utils/formatters/DateTimeFormatter";
 import Database from "@/utils/Database";
@@ -94,6 +94,7 @@ const Solicitacoes = () => {
         totalRecords={totalRecords}
         initialPage={currentPage}
         onPageChange={handlePageChange}
+        redirectRow={true}
       />
     </div>
   );

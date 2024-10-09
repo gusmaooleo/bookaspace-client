@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Box, Flex, IconButton } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faTrash, faEdit, faCalendar, faUser } from '@fortawesome/free-solid-svg-icons';
-import TabelaReutilizavel from '@/components/Solicitacao/TabelaReutilizavel';
+import { Column, PageChangeEvent } from '@/utils/interfaces/ReusableTable';
+import TabelaReutilizavel from '@/components/Shared/genericTable/ReusableTable';
 import './styles.css';
-import { PageChangeEvent } from '@/components/Solicitacao/TabelaReutilizavel.d';
+import Database from '@/utils/Database';
 
 const gestao = () => {
 
@@ -19,19 +20,15 @@ const gestao = () => {
     { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
     { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
     { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
+    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
+    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
+    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
+    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
+    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
+    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
   ];
 
-  const usuariosData = [
-    { avatar: '👤', loginssons: 'Username', username: 'Admin', role: 'Admin' },
-    { avatar: '👤', loginssons: 'John Doe', username: 'johndoe', role: 'Gestor' },
-    { avatar: '👤', loginssons: 'Alice', username: 'alice', role: 'Professor' },
-    { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
-    { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
-    { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
-    { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
-    { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
-    { avatar: '👤', loginssons: 'Robert', username: 'bob', role: 'Professor' },
-  ];
+  const usuariosData = Database.users;
 
   const eventosColumns = [
     { header: 'Usuário', key: 'usuario' },
@@ -39,9 +36,9 @@ const gestao = () => {
     { header: 'Data', key: 'data' },
   ];
 
-  const usuariosColumns = [
-    { header: '', key: 'avatar' },
-    { header: 'Login', key: 'loginssons' },
+  const usuariosColumns: Column[] = [
+    { header: '', key: 'username', type: 'avatar' },
+    { header: 'Login', key: 'login' },
     { header: 'Nome do usuário', key: 'username' },
     { header: 'Cargo', key: 'role' },
     { header: 'Ações', key: 'acoes' },
@@ -72,7 +69,7 @@ const gestao = () => {
     <div className='page p-20'>
       <Flex justifyContent="space-between" mb={8}>
         <Box flex={1} mr={4}>
-          <h2>Rastreador de eventos</h2>
+          <h2 className='mb-6'>Rastreador de eventos</h2>
           <TabelaReutilizavel
             columns={eventosColumns}
             data={eventosData}
@@ -80,12 +77,12 @@ const gestao = () => {
             textButtons={textButtonsEvents}
             totalRecords={eventosData.length}
             initialPage={currentPage}
-            rowsPerPageOptions={[10, 20, 30]}
+            rowsPerPageOptions={[10]}
             onPageChange={handlePageChange}
           />
         </Box>
         <Box flex={1} ml={4}>
-          <h2>Rastreador de eventos</h2>
+          <h2 className='mb-6'>Usuários</h2>
           <TabelaReutilizavel
             columns={usuariosColumns}
             data={usuariosData.map(user => ({
@@ -95,13 +92,11 @@ const gestao = () => {
                   <IconButton
                     aria-label="Excluir usuário"
                     icon={<FontAwesomeIcon icon={faTrash} />}
-                    size="sm"
                     colorScheme="red"
                   />
                   <IconButton
                     aria-label="Editar usuário"
                     icon={<FontAwesomeIcon icon={faEdit} />}
-                    size="sm"
                     colorScheme="green"
                     ml={2}
                   />
@@ -114,7 +109,7 @@ const gestao = () => {
             totalRecords={usuariosData.length}
             initialPage={currentPage}
             onRegister={{ label: 'Criar usuário', onClick: handleRegister, colorBg: 'white', icon: faPlus, colorText: 'black' }}
-            rowsPerPageOptions={[10, 20, 30]}
+            rowsPerPageOptions={[7]}
             onPageChange={handlePageChange}
           />
         </Box>

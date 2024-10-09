@@ -24,10 +24,12 @@
 }
 
 .custom-route-indicator {
-  position: absolute;
-  top: 5.2vmin;
+  position: relative;
   height: 0.3vmin;
+  margin-top: .5vmin;
+  margin-bottom: -0.8vmin;
   width: 5vmin;
   border-radius: 0.15vmin;
+  z-index: 100;
   background-color: var(--button-secondary);
 }

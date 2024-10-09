@@ -22,7 +22,7 @@
       color: var(--foreground) !important;
       font-weight: 600;
       background-color: var(--background);
-      height: 2.5rem;
+      height: var(--default-input-height);
       padding-left: 1rem !important;
       padding-right: 1rem !important;
     }
@@ -30,6 +30,7 @@
   
   .p-datepicker-trigger {
     background-color: var(--primary);
+    height: var(--default-input-height);
   }
 }
 
@@ -47,7 +48,7 @@
 
 .p-dropdown {
   width: 100% !important;
-  height: 2.5rem;
+  height: var(--default-input-height);
   box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.5);
   background-color: var(--background);
   color: #000 !important;
@@ -89,5 +90,4 @@
 .p-ripple-disabled, 
 .p-connected-overlay-enter-done {
   display: flex;
-  height: 40vmin;
 }

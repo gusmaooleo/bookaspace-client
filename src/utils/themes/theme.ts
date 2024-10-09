@@ -6,6 +6,7 @@ const Input: ComponentStyleConfig = {
     field: {
       boxShadow: "inset 0px 4px 8px rgba(0, 0, 0, 0.5)",
       fontWeight: "600",
+      height: '4.2vmin !important',
       outline: "none",
       border: "none",
       _focus: {

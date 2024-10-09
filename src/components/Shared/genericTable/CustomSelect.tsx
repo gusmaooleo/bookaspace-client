@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CustomSelectProps } from "@/components/Solicitacao/CustomSelect.d";
+import { CustomSelectProps } from "@/utils/interfaces/CustomSelect";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 function CustomSelect({ options, placeholder }: CustomSelectProps) {

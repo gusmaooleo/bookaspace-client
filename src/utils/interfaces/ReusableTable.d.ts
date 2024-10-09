@@ -1,10 +1,10 @@
-import { CustomSelectProps, Option } from './CustomSelect.d'; 
+import { CustomSelectProps, Option } from '../../components/Shared/genericTable/CustomSelect'; 
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 export interface Column {
     header: string;
     key: string;
-    type?: 'badge' | 'date';
+    type?: 'badge' | 'date' | 'avatar';
 }
 
 export interface Filter {
@@ -37,6 +37,7 @@ interface ReusableTableProps {
     columns: Column[];
     data: Record<string, any>[];
     filters: Filter[];
+    redirectRow?: boolean;
     textButtons: TextButton[];
     onRegister?: RegisterButton;
     colorHeader?: string;

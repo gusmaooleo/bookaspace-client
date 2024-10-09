@@ -29,7 +29,7 @@ const TopBarComponent = () => {
                 <Link href={value} className='anchor-box text-box'>
                   <p>{ key }</p>
                 </Link>
-                {router.pathname.includes(value) && <div className='custom-route-indicator'></div>}
+                {router.pathname.includes(value) && <span className='custom-route-indicator'></span>}
               </div>
             ))
           }

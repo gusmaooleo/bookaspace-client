@@ -19,16 +19,18 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
-import { PageChangeEvent, ReusableTableProps } from "./TabelaReutilizavel.d";
+import { PageChangeEvent, ReusableTableProps } from "@/utils/interfaces/ReusableTable";
 import CustomSelect from "./CustomSelect";
-import StatusBadgeComponent from "../UserInterface/statusBadge/StatusBadgeComponent";
+import StatusBadgeComponent from "../../UserInterface/statusBadge/StatusBadgeComponent";
 import { useRouter } from "next/router";
+import ProfilePicComponent from "@/components/Icons/profilePic/ProfilePicComponent";
 
-const TabelaReutilizavel: React.FC<ReusableTableProps> = ({
+const ReusableTable: React.FC<ReusableTableProps> = ({
   columns,
   data,
   filters,
   textButtons,
+  redirectRow,
   onRegister,
   totalRecords,
   colorHeader = "#1E1E1E",
@@ -73,7 +75,9 @@ const TabelaReutilizavel: React.FC<ReusableTableProps> = ({
   };
 
   const sendToSubpage = (id: any) => {
-    router.push(`${router.asPath}/${id}`)
+    if (redirectRow) {
+      router.push(`${router.asPath}/${id}`)
+    }
   }
 
   return (
@@ -122,7 +126,7 @@ const TabelaReutilizavel: React.FC<ReusableTableProps> = ({
         </HStack>
       </Box>
 
-      <Table variant="simple">
+      <Table variant="simple" maxHeight={'700px !important'}>
         <Thead>
           <Tr>
             {columns.map((column, index) => (
@@ -150,6 +154,10 @@ const TabelaReutilizavel: React.FC<ReusableTableProps> = ({
                       <Text fontSize="sm" color="gray.500">
                         {row[column.key]}
                       </Text>
+                    ) : column.type === "avatar" ? (
+                      <div className="h-10 w-10">
+                        <ProfilePicComponent subject={row[column.key]} not_shadow={true} />
+                      </div>
                     ) : (
                       row[column.key]
                     )}
@@ -172,4 +180,4 @@ const TabelaReutilizavel: React.FC<ReusableTableProps> = ({
   );
 };
 
-export default TabelaReutilizavel;
+export default ReusableTable;
