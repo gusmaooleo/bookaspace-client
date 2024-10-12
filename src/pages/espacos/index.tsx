@@ -7,6 +7,7 @@ import Database from '@/utils/Database';
 import './styles.css'
 import DynamicModal from '@/components/Shared/genericModal/DynamicModal';
 import type { Field } from '@/components/Shared/genericModal/DynamicModal';
+import SpaceCreateModalFormComponent from '@/components/Form/spaceCreateModalForm/SpaceCreateModalFormComponent';
 
 const Espacos: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -80,6 +81,7 @@ const Espacos: React.FC = () => {
         onSubmit={handleSubmitSpace}
         title="Registrar novo espaço"
         fields={spaceFields}
+        component={<SpaceCreateModalFormComponent />}
       />
     </div>
   );

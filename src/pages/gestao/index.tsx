@@ -9,6 +9,7 @@ import Database from '@/utils/Database';
 import DynamicModal from '@/components/Shared/genericModal/DynamicModal';
 import type { Field } from '@/components/Shared/genericModal/DynamicModal';
 import { faAdd, faBuildingUser, faFlaskVial, faGraduationCap, faSchool } from '@fortawesome/free-solid-svg-icons';
+import SpaceCreateUserFormComponent from '@/components/Form/spaceCreateUserForm/SpaceCreateUserFormComponent';
 
 const gestao = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -139,6 +140,7 @@ const gestao = () => {
         onSubmit={handleSubmitSpace}
         title="Criar usuário"
         fields={spaceFields}
+        component={<SpaceCreateUserFormComponent></SpaceCreateUserFormComponent>}
       />
     </div>
   );

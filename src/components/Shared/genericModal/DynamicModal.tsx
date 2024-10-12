@@ -35,10 +35,11 @@ interface DynamicModalProps {
     onClose: () => void;
     onSubmit: (formData: Record<string, string>) => void;
     title: string;
+    component: React.ReactNode;
     fields: Field[];
 }
 
-const DynamicModal: React.FC<DynamicModalProps> = ({ isOpen, onClose, onSubmit, title, fields }) => {
+const DynamicModal: React.FC<DynamicModalProps> = ({ isOpen, onClose, onSubmit, title, fields,component }) => {
     const [formData, setFormData] = React.useState<Record<string, string>>({});
 
     React.useEffect(() => {
@@ -49,73 +50,9 @@ const DynamicModal: React.FC<DynamicModalProps> = ({ isOpen, onClose, onSubmit, 
         setFormData(initialData);
     }, [fields]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
-    const handleSelectChange = (name: string, value: string) => {
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
     const handleSubmit = () => {
         onSubmit(formData);
         onClose();
-    };
-
-    const renderField = (field: Field) => {
-        const commonProps = {
-            name: field.name,
-            placeholder: field.placeholder,
-            onChange: handleChange,
-            width: "100%",  // Set width to 100%
-        };
-        switch (field.type) {
-            case 'text':
-                return (
-                    <InputGroup variant={field?.variant || 'light'}>
-                        <Input
-                            placeholder={field.placeholder}
-                        />
-                        {field.icon && (
-                            <InputRightElement>
-                                <FontAwesomeIcon
-                                    icon={field.icon}
-                                    color={field?.variant === 'dark' ? '#f4f7f5' : "#868686"}
-                                />
-                            </InputRightElement>
-                        )}
-                    </InputGroup>
-                );
-            case 'password':
-                return (
-                    <Input
-                        name={field.name}
-                        type={field.type}
-                        placeholder={field.placeholder}
-                        onChange={handleChange}
-                    />
-                );
-            case 'select':
-                return (
-                    <CustomSelect
-                        options={field.options || []}
-                        placeholder={field.placeholder || ''}
-                    />
-                );
-            case 'textarea':
-                return (
-                    <Textarea
-                        name={field.name}
-                        placeholder={field.placeholder}
-                        onChange={handleChange}
-                        color="black"
-                        bgColor={'white'}
-                    />
-                );
-            default:
-                return null;
-        }
     };
 
     return (
@@ -125,15 +62,10 @@ const DynamicModal: React.FC<DynamicModalProps> = ({ isOpen, onClose, onSubmit, 
                 <ModalHeader color="white">{title}</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                    {fields.map((field) => (
-                        <FormControl key={field.name} mt={4}>
-                            <FormLabel color="white" >{field.label}</FormLabel>
-                            {renderField(field)}
-                        </FormControl>
-                    ))}
+                    {component}
                 </ModalBody>
                 <ModalFooter>
-                    <Button colorScheme="gray" mr={3} onClick={onClose}>
+                    <Button variant={'outline'} mr={3} onClick={onClose}>
                         Cancelar
                     </Button>
                     <Button colorScheme="green" onClick={handleSubmit}>
