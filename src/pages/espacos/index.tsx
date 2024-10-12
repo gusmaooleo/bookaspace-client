@@ -29,19 +29,15 @@ const Espacos: React.FC = () => {
   ];
 
   const spaceFields: Field[] = [
-    { name: 'name', label: 'Nome do espaço', type: 'text', placeholder: 'Digite o nome do espaço' },
+    { name: 'name', label: 'Nome do espaço', type: 'text', placeholder: 'Digite o nome do espaço', icon: faSchool },
     {
       name: 'type',
       label: 'Tipo do espaço',
       type: 'select',
       placeholder: 'Selecione o tipo',
-      options: [
-        { value: 'sala_de_aula', label: 'Sala de aula' },
-        { value: 'auditorio', label: 'Auditório' },
-        { value: 'laboratorio', label: 'Laboratório' },
-      ]
+      options: [{ label: 'Sala de aula', icon: faGraduationCap }, { label: 'Auditório', icon: faBuildingUser }, { label: 'Laboratório', icon: faFlaskVial }],
     },
-    { name: 'capacity', label: 'Capacidade do espaço', type: 'text', placeholder: 'Digite a capacidade' },
+    { name: 'capacity', label: 'Capacidade do espaço', type: 'text', placeholder: 'Digite a capacidade', icon: faBuildingUser },
     { name: 'description', label: 'Descrição resumida dos recursos do espaço', type: 'textarea', placeholder: 'Descreva os recursos' },
   ];
 
