@@ -1,4 +1,4 @@
-import SpaceRegisterFormComponent from '@/components/Form/spaceRegisterForm/SpaceRegisterFormComponent';
+import SpaceRequestFormComponent from '@/components/Form/spaceRequestForm/SpaceRequestFormComponent';
 import CalendarComponent from '@/components/Calendar/calendar/CalendarComponent';
 import './styles.css'
 
@@ -6,7 +6,7 @@ const Agenda = () => {
   return (
     <div className='page agenda-page gap-8'>
       <CalendarComponent />
-      <SpaceRegisterFormComponent />
+      <SpaceRequestFormComponent />
     </div>
   );
 }

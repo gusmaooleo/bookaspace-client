@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { faAdd, faBuildingUser, faFlaskVial, faGraduationCap, faSchool } from '@fortawesome/free-solid-svg-icons';
 import { PageChangeEvent } from '@/utils/interfaces/ReusableTable';
 import { Space } from '@/utils/interfaces/Space';
-import TabelaReutilizavel from '@/components/Shared/genericTable/ReusableTable';
+import ReusableTable from '@/components/Shared/genericTable/ReusableTable';
 import Database from '@/utils/Database';
 import './styles.css'
 import DynamicModal from '@/components/Shared/genericModal/DynamicModal';
@@ -49,6 +49,7 @@ const Espacos: React.FC = () => {
 
   const handleRegister = () => {
     setIsModalOpen(true);
+    console.log('lesgo')
   };
 
   const handleSubmitSpace = (formData: Record<string, string>) => {
@@ -64,7 +65,7 @@ const Espacos: React.FC = () => {
   return (
     <div className='page p-20'>
       <h2 className="mb-6">Espaços</h2>
-      <TabelaReutilizavel
+      <ReusableTable
         columns={columns}
         data={data}
         filters={filters}

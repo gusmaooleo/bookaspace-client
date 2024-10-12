@@ -9,12 +9,12 @@ import {
 } from "@chakra-ui/react";
 import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
-import { useSpaceRegisterForm } from "@/hooks/useSpaceRegisterForm";
+import { useSpaceRequestForm } from "@/hooks/useSpaceRequestForm";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import WarningTextComponent from "@/components/UserInterface/warningText/WarningTextComponent";
 import "./index.css";
 
-const SpaceRegisterFormComponent: React.FC = () => {
+const SpaceRequestFormComponent: React.FC = () => {
   const {
     space,
     setSpace,
@@ -28,7 +28,7 @@ const SpaceRegisterFormComponent: React.FC = () => {
     clearForm,
     options,
     currentDateMessage
-  } = useSpaceRegisterForm();
+  } = useSpaceRequestForm();
   const toast = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -152,4 +152,4 @@ const SpaceRegisterFormComponent: React.FC = () => {
   );
 };
 
-export default SpaceRegisterFormComponent;
+export default SpaceRequestFormComponent;
