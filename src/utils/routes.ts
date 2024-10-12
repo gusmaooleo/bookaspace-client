@@ -1,6 +1,6 @@
 export enum Routes {
   Agenda = '/agenda',
-  Solicitacoes = '/solicitacoes',
+  Solicitações = '/solicitacoes',
   Espacos = '/espacos',
   Gestao = '/gestao'
 }

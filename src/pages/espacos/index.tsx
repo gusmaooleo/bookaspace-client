@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { faAdd, faBuildingUser, faFlaskVial, faGraduationCap, faSchool } from '@fortawesome/free-solid-svg-icons';
 import { PageChangeEvent } from '@/utils/interfaces/ReusableTable';
 import { Space } from '@/utils/interfaces/Space';
-import TabelaReutilizavel from '@/components/Shared/genericTable/ReusableTable';
+import ReusableTable from '@/components/Shared/genericTable/ReusableTable';
 import Database from '@/utils/Database';
 import './styles.css'
 
@@ -11,7 +11,6 @@ const espacos = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [totalRecords, setTotalRecords] = useState(0);
-
   const [data, setData] = useState<Space[]>(Database.spaces);
 
   const columns = [
@@ -33,7 +32,7 @@ const espacos = () => {
   ];
 
   const handleRegister = () => {
-    console.log('Registrar novo espaço');
+    console.log('lesgo')
   };
 
   // useEffect(() => {
@@ -55,7 +54,7 @@ const espacos = () => {
   return (
     <div className='page p-20'>
       <h2 className="mb-6">Espaços</h2>
-      <TabelaReutilizavel
+      <ReusableTable
         columns={columns}
         data={data}
         filters={filters}

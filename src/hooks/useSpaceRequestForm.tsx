@@ -4,7 +4,7 @@ import { Space } from "@/utils/interfaces/Space";
 import { parseISO } from 'date-fns';
 import { useState, useEffect } from "react";
 
-export const useSpaceRegisterForm = () => {
+export const useSpaceRequestForm = () => {
   const [space, setSpace] = useState<Space | null>(null);
   const [title, setTitle] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<Date[] | any>([]);
