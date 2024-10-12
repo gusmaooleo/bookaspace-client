@@ -6,9 +6,11 @@ import { Column, PageChangeEvent } from '@/utils/interfaces/ReusableTable';
 import TabelaReutilizavel from '@/components/Shared/genericTable/ReusableTable';
 import './styles.css';
 import Database from '@/utils/Database';
+import DynamicModal from '@/components/Shared/genericModal/DynamicModal';
+import type { Field } from '@/components/Shared/genericModal/DynamicModal';
 
 const gestao = () => {
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const eventosData = [
     { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
     { usuario: 'alice', tipo: 'saiu', data: '10/10/2024 às 14:00' },
@@ -44,6 +46,21 @@ const gestao = () => {
     { header: 'Ações', key: 'acoes' },
   ];
 
+  const spaceFields: Field[] =[
+    { name: 'name', label: 'Login do usuário', type: 'text', placeholder: 'Login do usuário' },
+    { name: 'name', label: 'Nome do usuário', type: 'text', placeholder: 'Nome do usuário' },
+    {
+      name: 'type', label: 'Cargo do usuário', type: 'select', placeholder: 'Cargo do usuário',
+      options: [
+        { value: 'sala_de_aula', label: 'Sala de aula' },
+        { value: 'auditorio', label: 'Auditório' },
+        { value: 'laboratorio', label: 'Laboratório' },
+      ]
+    },
+    { name: 'Senha', label: 'Senha', type: 'text', placeholder: 'Senha' },
+    { name: 'Confirme a senha', label: 'Confirme a senha', type: 'text', placeholder: 'Confirme a senha' },
+  ];
+
   const textButtonsEvents = [
     { placeholder: 'Usuário', icon: faUser },
     { placeholder: 'Tipo de evento', icon: faCalendar },
@@ -56,8 +73,13 @@ const gestao = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
+  const handleSubmitSpace = (formData: Record<string, string>) => {
+    console.log('Novo espaço:', formData);
+    setIsModalOpen(false);
+  };
+
   const handleRegister = () => {
-    console.log('Registrar novo Usuário');
+    setIsModalOpen(true);
   };
 
   const handlePageChange = (event: PageChangeEvent) => {
@@ -114,6 +136,13 @@ const gestao = () => {
           />
         </Box>
       </Flex>
+      <DynamicModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleSubmitSpace}
+        title="Criar usuário"
+        fields={spaceFields}
+      />
     </div>
   );
 }

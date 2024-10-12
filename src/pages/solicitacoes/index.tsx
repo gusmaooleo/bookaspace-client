@@ -47,6 +47,7 @@ const Solicitacoes = () => {
     {
       placeholder: "Ordenar por",
       options: [
+        { label: "Todos",},
         { label: "Mais recente", icon: faArrowUp },
         { label: "Mais antigo", icon: faArrowDown },
       ],
@@ -54,6 +55,7 @@ const Solicitacoes = () => {
     {
       placeholder: "Status",
       options: [
+        { label: "Todos", },
         { label: "Aguardando aprovação", color: "#FFE55F" },
         { label: "Aprovada", color: "#68D68A" },
         { label: "Reprovada", color: "#F97E7A" },

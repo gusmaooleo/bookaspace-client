@@ -14,7 +14,7 @@ const Solicitacao = () => {
 
   const { spaceRequests } = Database;
 
-  // simula chamadas a api etc
+  // simula chamadas a api etc 
 
   useEffect(() => {
     if (id) {
