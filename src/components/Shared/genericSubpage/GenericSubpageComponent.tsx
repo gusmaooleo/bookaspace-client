@@ -7,7 +7,7 @@ import "./index.css";
 interface GenericSubpageProps {
   value: string;
   _id?: number | string;
-  status?: string;
+  status?: string | boolean;
   genericItem: GenericSubpage[];
 }
 
@@ -40,7 +40,7 @@ const GenericSubpageComponent = ({
         </div>
       </div>
       <ActionsSubpageComponent 
-      
+
       />
     </div>
   );

@@ -7,9 +7,8 @@ import TabelaReutilizavel from '@/components/Shared/genericTable/ReusableTable';
 import './styles.css';
 import Database from '@/utils/Database';
 import DynamicModal from '@/components/Shared/genericModal/DynamicModal';
-import type { Field } from '@/components/Shared/genericModal/DynamicModal';
 import { faAdd, faBuildingUser, faFlaskVial, faGraduationCap, faSchool } from '@fortawesome/free-solid-svg-icons';
-import SpaceCreateUserFormComponent from '@/components/Form/spaceCreateUserForm/SpaceCreateUserFormComponent';
+import CreateUserFormComponent from '@/components/Form/createUserForm/createUserFormComponent';
 import { User } from '@/utils/interfaces/User';
 import GestaoService from '@/services/gestao/GestaoService';
 import DeleteTextModalComponent from '@/components/UserInterface/deleteTextModal/DeleteTextModalComponent';
@@ -74,17 +73,6 @@ const gestao = () => {
     { header: 'Ações', key: 'acoes' },
   ];
 
-  const spaceFields: Field[] = [
-    { name: 'name', label: 'Login do usuário', type: 'text', placeholder: 'Login do usuário' },
-    { name: 'name', label: 'Nome do usuário', type: 'text', placeholder: 'Nome do usuário' },
-    {
-      name: 'type', label: 'Cargo do usuário', type: 'select', placeholder: 'Cargo do usuário',
-      options: [{ label: 'Administrador', icon: faGraduationCap, color: 'black' }, { label: 'Gestor', icon: faBuildingUser }, { label: 'Professor', icon: faFlaskVial },],
-    },
-    { name: 'Senha', label: 'Senha', type: 'text', placeholder: 'Senha' },
-    { name: 'Confirme a senha', label: 'Confirme a senha', type: 'text', placeholder: 'Confirme a senha' },
-  ];
-
   const textButtonsEvents = [
     { placeholder: 'Usuário', icon: faUser },
     { placeholder: 'Tipo de evento', icon: faCalendar },
@@ -143,7 +131,7 @@ const gestao = () => {
   const renderModalComponent = () => {
     switch (modalType) {
       case 'create':
-        return <SpaceCreateUserFormComponent />;
+        return <CreateUserFormComponent onClose={() => setIsModalOpen(false)} />;
       case 'edit':
         // return <EditUserModalComponent user={selectedUser} />;
       case 'delete':
@@ -226,9 +214,7 @@ const gestao = () => {
       <DynamicModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        onSubmit={handleSubmitModal}
         title={getModalTitle()}
-        fields={spaceFields}
         component={renderModalComponent()}
       />
     </div>
@@ -238,4 +224,3 @@ const gestao = () => {
 
 
 export default gestao;
-

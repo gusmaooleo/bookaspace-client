@@ -26,6 +26,13 @@ const Input: ComponentStyleConfig = {
         color: "#1e1e1e",
       }
     },
+    ns_light: {
+      field: {
+        boxShadow: 'none !important',
+        bg: "#F4F7F5 !important",
+        color: "#1e1e1e",
+      }
+    },
     dark: {
       field: {
         bg: "#1e1e1e !important",

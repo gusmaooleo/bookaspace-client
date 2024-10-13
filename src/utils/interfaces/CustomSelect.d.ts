@@ -9,4 +9,5 @@ export interface Option {
 export interface CustomSelectProps {
     placeholder: string;
     options: Option[];
+    setValue: React.Dispatch<React.SetStateAction<string>>;
 }

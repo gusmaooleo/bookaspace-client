@@ -1,0 +1,12 @@
+
+
+.p-inputnumber-input {
+  padding-left: 1rem;
+  padding-right: 2rem;
+  background-color: var(--background);
+}
+
+.p-inputnumber-input::placeholder {
+  font-weight: 600;
+  font-style: italic;
+}

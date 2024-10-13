@@ -13,6 +13,7 @@ import { useSpaceRequestForm } from "@/hooks/useSpaceRequestForm";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import WarningTextComponent from "@/components/UserInterface/warningText/WarningTextComponent";
 import "./index.css";
+import { useUser } from "@/contexts/userContext";
 
 const SpaceRequestFormComponent: React.FC = () => {
   const {
@@ -29,6 +30,7 @@ const SpaceRequestFormComponent: React.FC = () => {
     options,
     currentDateMessage
   } = useSpaceRequestForm();
+  const { user, setUser } = useUser();
   const toast = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -36,11 +38,12 @@ const SpaceRequestFormComponent: React.FC = () => {
 
     if (selectedDate[0] > new Date()) {
       const payload = {
-        space: space,
-        title: title,
-        description: description,
-        startDate: selectedDate[0], 
-        endDate: selectedDate[1], 
+        "userId": user?.id,
+        "physicalSpaceId": space?.id,
+        "dateTimeStart": selectedDate[0], 
+        "dateTimeEnd": selectedDate[1], 
+        // title: title,
+        "needs": description,
       }
       console.log(payload);
     } else {

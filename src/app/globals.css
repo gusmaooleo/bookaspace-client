@@ -76,3 +76,7 @@ h3 {
 .chakra-button {
   height: 4.2vmin !important;
 }
+
+.chakra-modal__content-container {
+  align-items: center !important;
+}

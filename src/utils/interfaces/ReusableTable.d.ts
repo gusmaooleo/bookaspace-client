@@ -44,7 +44,7 @@ export interface ReusableTableProps {
     initialPage?: number;
     rowsPerPageOptions?: number[];
     onPageChange: (event: PageChangeEvent) => void;
-    isLoading?: boolean;
+    isLoading?: boolean,
 }
 
 export interface PageChangeEvent {
