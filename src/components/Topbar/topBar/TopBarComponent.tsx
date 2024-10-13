@@ -2,10 +2,12 @@ import ProfilePicComponent from '@/components/Icons/profilePic/ProfilePicCompone
 import LogoComponent from '@/components/Icons/logo/LogoComponent';
 import { Routes } from '@/utils/routes';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import React from 'react';
 import './index.css'
-import { useRouter } from 'next/router';
+import { User } from '@/utils/interfaces/User';
+import { FormatRole } from '@/utils/formatters/GeneralStateFormatter';
 
 
 const TopBarComponent = () => {
@@ -13,9 +15,12 @@ const TopBarComponent = () => {
     () => Object.entries(Routes) as [string, string][]
   );
   const router = useRouter();
+  const [user, setUser] = useState<User | any>();
 
   useEffect(() => {
     console.log(router.pathname)
+    const userData = JSON.parse(localStorage.getItem('user_data') || '{ id: -1 }')
+    setUser(userData);
   }, [])
 
   return (
@@ -38,11 +43,11 @@ const TopBarComponent = () => {
       <div className='flex flex-row gap-3 h-3/4 items-center mr-6'>
         {/* gets subject from localstorage */}
         <div className='h-12 w-12 mt-1 cursor-pointer'>
-          <ProfilePicComponent subject='none' />
+          <ProfilePicComponent subject={user?.username || 'none'} />
         </div>
         <div className='flex flex-col gap-1 text-box'>
-          <p>username</p>
-          <p>role</p>
+          <p>{ user?.username || ""}</p>
+          <p>{ FormatRole(user?.roles[0].id) || "" }</p>
         </div>
       </div>
     </div>

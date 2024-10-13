@@ -3,16 +3,16 @@ import { SpaceRequest } from "./interfaces/SpaceRequest";
 import { User } from "./interfaces/User";
 
 const users: User[] = [
-  { _id: 1, login: "john_doe", username: "John Doe", role: "ADMIN" },
-  { _id: 2, login: "jane_smith", username: "Jane Smith", role: "TEATCHER" },
-  { _id: 3, login: "alice_wonder", username: "Alice Wonder", role: "TEATCHER" },
-  { _id: 4, login: "bob_builder", username: "Bob Builder", role: "MANAGER" },
-  { _id: 5, login: "chris_potter", username: "Chris Potter", role: "TEATCHER" },
-  { _id: 6, login: "dave_brave", username: "Dave Brave", role: "TEATCHER" },
-  { _id: 7, login: "eva_green", username: "Eva Green", role: "MANAGER" },
-  { _id: 8, login: "frank_mills", username: "Frank Mills", role: "MANAGER" },
-  { _id: 9, login: "george_king", username: "George King", role: "TEATCHER" },
-  { _id: 10, login: "harry_smith", username: "Harry Smith", role: "TEATCHER" },
+  // { _id: 1, login: "john_doe", username: "John Doe", role: "ADMIN" },
+  // { _id: 2, login: "jane_smith", username: "Jane Smith", role: "TEATCHER" },
+  // { _id: 3, login: "alice_wonder", username: "Alice Wonder", role: "TEATCHER" },
+  // { _id: 4, login: "bob_builder", username: "Bob Builder", role: "MANAGER" },
+  // { _id: 5, login: "chris_potter", username: "Chris Potter", role: "TEATCHER" },
+  // { _id: 6, login: "dave_brave", username: "Dave Brave", role: "TEATCHER" },
+  // { _id: 7, login: "eva_green", username: "Eva Green", role: "MANAGER" },
+  // { _id: 8, login: "frank_mills", username: "Frank Mills", role: "MANAGER" },
+  // { _id: 9, login: "george_king", username: "George King", role: "TEATCHER" },
+  // { _id: 10, login: "harry_smith", username: "Harry Smith", role: "TEATCHER" },
 ];
 
 const spaces: Space[] = [

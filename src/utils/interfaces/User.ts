@@ -1,6 +1,11 @@
+import { Roles } from "./Roles";
+import { SpaceRequest } from "./SpaceRequest";
+
 export interface User {
-  _id: number,
-  login: string,
+  id: number,
   username: string,
-  role: 'TEATCHER' | 'ADMIN' | 'MANAGER',
+  login: string,
+  role: Roles[],
+  requests: SpaceRequest[],
+  approvalHistories: any[],
 }

@@ -7,7 +7,7 @@ interface ProfilePicProps {
 }
 
 const ProfilePicComponent = ({ subject, not_shadow }: ProfilePicProps) => {
-  
+
   return (
     <div className='flex h-full justify-center'>
       {subject === 'none' ?

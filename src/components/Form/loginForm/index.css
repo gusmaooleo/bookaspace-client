@@ -31,8 +31,23 @@
   transition: 0.2s ease;
 }
 
+.left-custom-button {
+  width: 18vmin !important;
+  border-radius: 1rem 0rem 0rem 1rem !important;
+}
+
+.right-custom-button {
+  width: 18vmin !important;
+  border-radius: 0rem 1rem 1rem 0rem !important;
+  background-color: var(--red-tone);
+}
+
+.right-custom-button:hover {
+  background-color: #ff9592 !important;
+}
+
 .custom-submit-login-button:hover {
-  background-color: #29AA51;
+  background-color: #9edbb2;
 }
 
 .dynamic-profile-pic {
@@ -40,13 +55,13 @@
   width: 20vmin;
   margin-bottom: -8vmin;
   z-index: 110111;
+
+  .chakra-avatar__initials {
+    font-size: 5rem !important;
+  }
 }
 
 /* chakraui config */
 .chakra-checkbox__control {
   background-color: var(--background);
-}
-
-.chakra-avatar__initials {
-  font-size: 5rem !important;
 }
