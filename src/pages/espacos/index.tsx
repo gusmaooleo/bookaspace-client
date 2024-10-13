@@ -5,13 +5,16 @@ import { Space } from '@/utils/interfaces/Space';
 import ReusableTable from '@/components/Shared/genericTable/ReusableTable';
 import Database from '@/utils/Database';
 import './styles.css'
+import DynamicModal from '@/components/Shared/genericModal/DynamicModal';
+import type { Field } from '@/components/Shared/genericModal/DynamicModal';
+import SpaceCreateModalFormComponent from '@/components/Form/spaceCreateModalForm/SpaceCreateModalFormComponent';
 
-
-const espacos = () => {
+const Espacos: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [totalRecords, setTotalRecords] = useState(0);
   const [data, setData] = useState<Space[]>(Database.spaces);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const columns = [
     { header: 'Nome do espaço', key: 'name' },
@@ -22,8 +25,21 @@ const espacos = () => {
   ];
 
   const filters = [
-    { placeholder: 'Disponibilidade', options: [{ label: 'Disponível', color: '#68d68a' }, { label: 'Indisponível', color: '#f97e7a' }] },
-    { placeholder: 'Tipo', options: [{ label: 'Sala de aula', icon: faGraduationCap }, { label: 'Auditório', icon: faBuildingUser }, { label: 'Laboratório', icon: faFlaskVial }] },
+    { placeholder: 'Disponibilidade', options: [{ label: "Todos", }, { label: 'Disponível', color: '#68d68a' }, { label: 'Indisponível', color: '#f97e7a' }] },
+    { placeholder: 'Tipo', options: [{ label: "Todos" }, { label: 'Sala de aula', icon: faGraduationCap }, { label: 'Auditório', icon: faBuildingUser }, { label: 'Laboratório', icon: faFlaskVial }] },
+  ];
+
+  const spaceFields: Field[] = [
+    { name: 'name', label: 'Nome do espaço', type: 'text', placeholder: 'Digite o nome do espaço', icon: faSchool },
+    {
+      name: 'type',
+      label: 'Tipo do espaço',
+      type: 'select',
+      placeholder: 'Selecione o tipo',
+      options: [{ label: 'Sala de aula', icon: faGraduationCap }, { label: 'Auditório', icon: faBuildingUser }, { label: 'Laboratório', icon: faFlaskVial }],
+    },
+    { name: 'capacity', label: 'Capacidade do espaço', type: 'text', placeholder: 'Digite a capacidade', icon: faBuildingUser },
+    { name: 'description', label: 'Descrição resumida dos recursos do espaço', type: 'textarea', placeholder: 'Descreva os recursos' },
   ];
 
   const textButtons = [
@@ -32,19 +48,14 @@ const espacos = () => {
   ];
 
   const handleRegister = () => {
+    setIsModalOpen(true);
     console.log('lesgo')
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetch(`/api/solicitacoes?page=${currentPage}&pageSize=${pageSize}`);
-  //     const result = await response.json();
-  //     setData(result.data);
-  //     setTotalRecords(result.totalRecords);
-  //   };
-
-  //   fetchData();
-  // }, [currentPage, pageSize]);
+  const handleSubmitSpace = (formData: Record<string, string>) => {
+    console.log('Novo espaço:', formData);
+    setIsModalOpen(false);
+  };
 
   function handlePageChange(event: PageChangeEvent) {
     setCurrentPage(event.page);
@@ -65,11 +76,16 @@ const espacos = () => {
         onPageChange={handlePageChange}
         redirectRow={true}
       />
+      <DynamicModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleSubmitSpace}
+        title="Registrar novo espaço"
+        fields={spaceFields}
+        component={<SpaceCreateModalFormComponent />}
+      />
     </div>
   );
-
 };
 
-export default espacos;
-
-
+export default Espacos;

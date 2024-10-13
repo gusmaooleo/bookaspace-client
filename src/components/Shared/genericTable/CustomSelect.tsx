@@ -25,6 +25,7 @@ function CustomSelect({ options, placeholder }: CustomSelectProps) {
         rightIcon={<ChevronDownIcon />}
         bg="#E8E8E8"
         color="black"
+        width="100%"
       >
         <div className="flex flex-row gap-2 items-center">
           {selectedStatus}
@@ -35,11 +36,11 @@ function CustomSelect({ options, placeholder }: CustomSelectProps) {
           )}
         </div>
       </MenuButton>
-      <MenuList>
+      <MenuList width="100%">
         {options.map((option, index) => (
-          <MenuItem key={index} onClick={() => {
+          <MenuItem key={index} color={"black"} onClick={() => {
             setSelectedStatus(option.label)
-            setBoxColor(option.color)  
+            setBoxColor(option.color)
             setIcon(option.icon)
           }}>
             {option.label}
