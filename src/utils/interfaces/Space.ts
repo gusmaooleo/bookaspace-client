@@ -1,12 +1,13 @@
 import { User } from "./User";
 
 export interface Space {
-  _id?: number,
+  id?: number,
   creator?: User,
   name: string,
-  resources?: string,
-  capacity?: number,
+  location: string,
+  type: 'CLASSROOM' | 'AUDITORIUM' | 'LABORATORY' | "",
+  capacity: number,
+  resources: string,
   creation?: string,
-  type: 'CLASSROOM' | 'AUDITORIUM' | 'LABORATORY',
   status?: 'AVAILABLE' | 'UNAVAILABLE',
 }

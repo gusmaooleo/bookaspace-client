@@ -3,6 +3,7 @@ import { SelectedDate } from "@/utils/interfaces/SelectedDate";
 import { Space } from "@/utils/interfaces/Space";
 import { parseISO } from 'date-fns';
 import { useState, useEffect } from "react";
+import spaceStore from "./useSpaceData";
 
 export const useSpaceRequestForm = () => {
   const [space, setSpace] = useState<Space | null>(null);
@@ -11,13 +12,10 @@ export const useSpaceRequestForm = () => {
   const [currentDateMessage, setCurrentDateMessage] = useState<string>('');
   const [description, setDesciption] = useState<string>("");
   const [canSubmit, setCanSubmit] = useState<string>("blocked");
+  const [options, setOptions] = useState<Space[]>();
+  const getSpaces = spaceStore((state) => state.spaces)
 
   // será trocado por um serviço
-  const options: Space[] = [
-    { name: "Sala b404", type: 'CLASSROOM' },
-    { name: "Sala b406", type: 'CLASSROOM' },
-    { name: "Teatro", type: 'AUDITORIUM' },
-  ];
 
   const clearForm = () => {
     setSpace(null)
@@ -27,7 +25,8 @@ export const useSpaceRequestForm = () => {
   }
 
   useEffect(() => {
-    const subscription = calendarService.selectedDate$.subscribe((infoParams: SelectedDate) => {
+    setOptions(getSpaces);
+    calendarService.selectedDate$.subscribe((infoParams: SelectedDate) => {
       if (infoParams.start !== '') {
         setSelectedDate([parseISO(infoParams.start), parseISO(infoParams.end)])
       }

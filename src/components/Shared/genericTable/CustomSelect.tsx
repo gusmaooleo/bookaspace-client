@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Menu,
   MenuButton,
@@ -13,7 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CustomSelectProps } from "@/utils/interfaces/CustomSelect";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-function CustomSelect({ options, placeholder }: CustomSelectProps) {
+function CustomSelect({ options, placeholder, setValue }: CustomSelectProps) {
   const [selectedStatus, setSelectedStatus] = useState(placeholder);
   const [boxColor, setBoxColor] = useState<string>();
   const [icon, setIcon] = useState<IconProp>();
@@ -36,10 +36,11 @@ function CustomSelect({ options, placeholder }: CustomSelectProps) {
           )}
         </div>
       </MenuButton>
-      <MenuList width="100%">
+      <MenuList>
         {options.map((option, index) => (
           <MenuItem key={index} color={"black"} onClick={() => {
             setSelectedStatus(option.label)
+            setValue(option.label)
             setBoxColor(option.color)
             setIcon(option.icon)
           }}>

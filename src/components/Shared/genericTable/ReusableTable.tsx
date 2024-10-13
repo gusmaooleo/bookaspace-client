@@ -41,6 +41,7 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
   const [first, setFirst] = useState(initialPage * rowsPerPageOptions[0]);
   const [rows, setRows] = useState(rowsPerPageOptions[0]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [type, setType] = useState<string>("");
   const router = useRouter();
 
   useEffect(() => {
@@ -96,6 +97,7 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
               <CustomSelect
                 options={filter.options}
                 placeholder={filter.placeholder}
+                setValue={setType}
               />
             </div>
           ))}
