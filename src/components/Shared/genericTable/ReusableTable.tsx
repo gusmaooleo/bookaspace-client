@@ -14,12 +14,16 @@ import {
   Input,
   InputRightElement,
   Spacer,
+  Spinner,
 } from "@chakra-ui/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
-import { PageChangeEvent, ReusableTableProps } from "@/utils/interfaces/ReusableTable";
+import {
+  PageChangeEvent,
+  ReusableTableProps,
+} from "@/utils/interfaces/ReusableTable";
 import CustomSelect from "./CustomSelect";
 import StatusBadgeComponent from "../../UserInterface/statusBadge/StatusBadgeComponent";
 import { useRouter } from "next/router";
@@ -37,6 +41,7 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
   initialPage = 0,
   rowsPerPageOptions = [8],
   onPageChange,
+  isLoading,
 }) => {
   const [first, setFirst] = useState(initialPage * rowsPerPageOptions[0]);
   const [rows, setRows] = useState(rowsPerPageOptions[0]);
@@ -77,9 +82,9 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
 
   const sendToSubpage = (id: any) => {
     if (redirectRow) {
-      router.push(`${router.asPath}/${id}`)
+      router.push(`${router.asPath}/${id}`);
     }
-  }
+  };
 
   return (
     <Box bg="white" borderRadius="lg" boxShadow="md">
@@ -103,12 +108,17 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
           ))}
 
           {textButtons.map((textButton, index) => (
-            <InputGroup variant={textButton?.variant || 'light'} w="fit-content" key={index}>
-              <Input
-                placeholder={textButton.placeholder}
-              />
+            <InputGroup
+              variant={textButton?.variant || "light"}
+              w="fit-content"
+              key={index}
+            >
+              <Input placeholder={textButton.placeholder} />
               <InputRightElement>
-                <FontAwesomeIcon icon={textButton.icon} color={textButton?.variant === 'dark' ? '#f4f7f5' : "#868686"} />
+                <FontAwesomeIcon
+                  icon={textButton.icon}
+                  color={textButton?.variant === "dark" ? "#f4f7f5" : "#868686"}
+                />
               </InputRightElement>
             </InputGroup>
           ))}
@@ -128,7 +138,7 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
         </HStack>
       </Box>
 
-      <Table variant="simple" maxHeight={'700px !important'}>
+      <Table variant="simple" maxHeight={"700px !important"}>
         <Thead>
           <Tr>
             {columns.map((column, index) => (
@@ -137,28 +147,35 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
           </Tr>
         </Thead>
         <Tbody>
-          {data.length > 0 ? (
+          {isLoading ? (
+            <Tr>
+              <Td colSpan={columns.length} textAlign="center">
+                <Spinner />
+              </Td>
+            </Tr>
+          ) : data.length > 0 ? (
             data.slice(first, first + rows).map((row, rowIndex) => (
-              <Tr 
-                _hover={{backgroundColor: '#F3F3F3'}} 
-                transition={'0.2s ease'} 
-                onClick={() => sendToSubpage(row?._id)} 
+              <Tr
+                _hover={{ backgroundColor: "#F3F3F3" }}
+                transition={"0.2s ease"}
+                onClick={() => sendToSubpage(row?.id)}
                 key={rowIndex}
-                cursor={'pointer'}
+                cursor={"pointer"}
               >
                 {columns.map((column, colIndex) => (
                   <Td key={colIndex}>
                     {column.type === "badge" ? (
-                      <StatusBadgeComponent 
-                        status={row[column.key]}
-                      />
+                      <StatusBadgeComponent status={row[column.key]} />
                     ) : column.type === "date" ? (
                       <Text fontSize="sm" color="gray.500">
                         {row[column.key]}
                       </Text>
                     ) : column.type === "avatar" ? (
                       <div className="h-10 w-10">
-                        <ProfilePicComponent subject={row[column.key]} not_shadow={true} />
+                        <ProfilePicComponent
+                          subject={row[column.key]}
+                          not_shadow={true}
+                        />
                       </div>
                     ) : (
                       row[column.key]

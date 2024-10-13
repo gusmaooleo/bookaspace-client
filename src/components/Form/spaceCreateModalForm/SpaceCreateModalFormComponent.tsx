@@ -24,6 +24,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SpaceService from "@/services/space/SpaceService";
 import "./index.css";
 import { Space } from "@/utils/interfaces/Space";
+import { useSpace } from "@/hooks/useSpace";
 
 interface SpaceCreateModalProps {
   onClose: () => void,
@@ -35,6 +36,7 @@ const SpaceCreateModalFormComponent: FC<SpaceCreateModalProps> = ({ onClose }) =
   const [location, setLocation] = useState<string | null>(null);
   const [capacity, setCapacity] = useState<number | null>(null);
   const [description, setDescription] = useState("");
+  const { setSpaces } = useSpace();
   const spaceService = new SpaceService();
   const toast = useToast();
 
@@ -88,7 +90,8 @@ const SpaceCreateModalFormComponent: FC<SpaceCreateModalProps> = ({ onClose }) =
         status: "success",
         position: "top-right",
       });
-      onClose()
+      onClose();
+      setSpaces();
     } else {
       toast({
         title: "Erro",
@@ -186,7 +189,7 @@ const SpaceCreateModalFormComponent: FC<SpaceCreateModalProps> = ({ onClose }) =
           </FormControl>
         </div>
 
-        <div className="flex w-full justify-end mt-4">
+        <div className="flex w-full justify-end mt-10">
           <Button variant={"outline"} mr={3} onClick={onClose}>
             Cancelar
           </Button>

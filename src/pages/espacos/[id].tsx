@@ -1,32 +1,31 @@
 import { useRouter } from "next/router";
-import Database from "@/utils/Database";
 import { useEffect, useState } from "react";
 import GenericSubpageComponent from "@/components/Shared/genericSubpage/GenericSubpageComponent";
 import { GenericSubpage } from "@/utils/interfaces/GenericSubpage";
 import { Space } from "@/utils/interfaces/Space";
 import { SpaceItemFormatter } from "@/utils/formatters/SpaceItemFormatter";
+import { useSpace } from "@/hooks/useSpace";
 
 const Espacos = () => {
   const router = useRouter();
-  const { id } = router.query;
   const [espaco, setEspaco] = useState<Space | null>(null);
   const [payload, setPayload] = useState<GenericSubpage[] | null>(null);
+  const { id } = router.query;
+  const { getSpaces } = useSpace(); 
 
-  const { spaces } = Database;
 
   // simula chamadas a api etc
 
   useEffect(() => {
-    if (id) {
-      const foundSpace = spaces.find(
-        (obj) => obj["_id"] === Number(id)
-      );
-      setEspaco(foundSpace || null);
-    }
-  }, [id]);
+    const space = getSpaces.find(
+      (obj) => obj["id"] === Number(id)
+    )
+    setEspaco(space || null);
+  }, []);
 
   useEffect(() => {
     if (espaco) {
+      console.log(espaco)
       setPayload(SpaceItemFormatter(espaco))
     }
   }, [espaco])
@@ -36,8 +35,8 @@ const Espacos = () => {
       {payload && 
         <GenericSubpageComponent 
           value="Espaço"
-          _id={espaco?._id}
-          status={espaco?.status}
+          _id={espaco?.id}
+          status={espaco?.availability}
           genericItem={payload}
         />
       }

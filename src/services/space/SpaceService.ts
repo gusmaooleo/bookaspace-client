@@ -32,6 +32,19 @@ class SpaceService {
     }
   }
 
+  async getSpaceById(id: string): Promise<Space> {
+    try {
+      const payload = await axios.get(`${environments.url}/physicalspaces/${id}`, {
+        headers: {
+          "Authorization": `Bearer ${Cookies.get('user_token')}`,
+        }
+      })
+      return payload.data;
+    } catch (error) {
+      throw error
+    }
+  }
+
 }
 
 export default SpaceService;

@@ -6,9 +6,8 @@ import ReusableTable from '@/components/Shared/genericTable/ReusableTable';
 import DynamicModal from '@/components/Shared/genericModal/DynamicModal';
 import SpaceCreateModalFormComponent from '@/components/Form/spaceCreateModalForm/SpaceCreateModalFormComponent';
 import { filters, spaceColumns, textButtons } from '@/utils/formatters/SpaceTableConfig';
-import SpaceService from '@/services/space/SpaceService';
+import { useSpace } from '@/hooks/useSpace';
 import './styles.css'
-import spaceStore from '@/hooks/useSpaceData';
 
 const Espacos: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -16,12 +15,11 @@ const Espacos: React.FC = () => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [data, setData] = useState<Space[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const spaces = spaceStore((state) => state.spaces)
-  const spaceService = new SpaceService();
+  const { getSpaces } = useSpace();
 
   useEffect(() => {
-    setData(spaces)
-  }, [])
+    setData(getSpaces)
+  }, [getSpaces])
 
   const openModal = () => {
     setIsModalOpen(true);

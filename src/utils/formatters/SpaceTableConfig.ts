@@ -5,7 +5,7 @@ export const spaceColumns: Column[] = [
   { header: 'Nome do espaço', key: 'name' },
   { header: 'Tipo', key: 'type' },
   { header: 'Capacidade', key: 'capacity' },
-  { header: 'Disponibilidade', key: 'status', type: 'badge' as const },
+  { header: 'Disponibilidade', key: 'availability', type: 'badge' as const },
 ]
 
 export const filters: Filter[] = [

@@ -3,7 +3,7 @@ import { SelectedDate } from "@/utils/interfaces/SelectedDate";
 import { Space } from "@/utils/interfaces/Space";
 import { parseISO } from 'date-fns';
 import { useState, useEffect } from "react";
-import spaceStore from "./useSpaceData";
+import { useSpace } from "./useSpace";
 
 export const useSpaceRequestForm = () => {
   const [space, setSpace] = useState<Space | null>(null);
@@ -13,7 +13,7 @@ export const useSpaceRequestForm = () => {
   const [description, setDesciption] = useState<string>("");
   const [canSubmit, setCanSubmit] = useState<string>("blocked");
   const [options, setOptions] = useState<Space[]>();
-  const getSpaces = spaceStore((state) => state.spaces)
+  const { getSpaces } = useSpace();
 
   // será trocado por um serviço
 
@@ -25,13 +25,16 @@ export const useSpaceRequestForm = () => {
   }
 
   useEffect(() => {
-    setOptions(getSpaces);
     calendarService.selectedDate$.subscribe((infoParams: SelectedDate) => {
       if (infoParams.start !== '') {
         setSelectedDate([parseISO(infoParams.start), parseISO(infoParams.end)])
       }
     })
   }, [])
+
+  useEffect(() => {
+    setOptions(getSpaces);
+  }, [getSpaces])
 
   useEffect(() => {
     // regras de formulário (tem como melhorar bastante, boa sorte para quem for mexer nisso).

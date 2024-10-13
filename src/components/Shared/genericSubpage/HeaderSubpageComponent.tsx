@@ -4,7 +4,7 @@ import { Divider } from "@chakra-ui/react";
 interface HeaderProps {
   value: string,
   _id?: number | string,
-  status?: string,
+  status?: string | boolean,
 }
 
 export const Header = ({ value, _id, status }: HeaderProps) => {

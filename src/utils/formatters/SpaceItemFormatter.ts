@@ -1,8 +1,20 @@
 import { GenericSubpage } from "../interfaces/GenericSubpage";
 import { Space } from "../interfaces/Space";
-import { formatDate } from "./DateTimeFormatter";
 
 export const SpaceItemFormatter = (values: Space): GenericSubpage[] => {
+  const decideTypeRef = (value: string) => {
+    switch (value) {
+      case "AUDITORIUM":
+        return "Auditório"
+      case "CLASSROOM":
+        return "Sala de aula"
+      case "LABORATORY":
+        return "Laboratório"
+      default:
+        return "";
+    }
+  }
+
   let formattedItem: GenericSubpage[] = [
     {
       "title": "Nome do espaço",
@@ -10,22 +22,16 @@ export const SpaceItemFormatter = (values: Space): GenericSubpage[] => {
       "type": 'title',
     },
     {
-      "title": "Criador do espaço",
-      "description": `${values.creator?.login} - ${values.creator?.username}`,
-      "username": values.creator?.username,
-      "type": 'user'
-    },
-    {
       "title": "Recursos",
       "description": values.resources,
     },
     {
-      "title": "Data de criação",
-      "description": formatDate(values.creation),
+      "title": "Localização",
+      "description": values.location,
     },
     {
       "title": "Tipo do espaço",
-      "description": values.type,
+      "description": decideTypeRef(values.type),
     },
     {
       "title": "Capacidade do espaço",

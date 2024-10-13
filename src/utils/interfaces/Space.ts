@@ -9,5 +9,6 @@ export interface Space {
   capacity: number,
   resources: string,
   creation?: string,
+  availability: boolean,
   status?: 'AVAILABLE' | 'UNAVAILABLE',
 }
