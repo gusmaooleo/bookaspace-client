@@ -1,4 +1,4 @@
-import { CustomSelectProps, Option } from '../../components/Shared/genericTable/CustomSelect'; 
+import { CustomSelectProps, Option } from '../../components/Shared/genericTable/CustomSelect';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 export interface Column {
@@ -32,8 +32,7 @@ export interface ParentComponentProps {
     options: CustomSelectProps[];
 }
 
-
-interface ReusableTableProps {
+export interface ReusableTableProps {
     columns: Column[];
     data: Record<string, any>[];
     filters: Filter[];
@@ -45,6 +44,7 @@ interface ReusableTableProps {
     initialPage?: number;
     rowsPerPageOptions?: number[];
     onPageChange: (event: PageChangeEvent) => void;
+    isLoading?: boolean;
 }
 
 export interface PageChangeEvent {

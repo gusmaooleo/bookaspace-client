@@ -14,6 +14,7 @@ import {
   Input,
   InputRightElement,
   Spacer,
+  Spinner,
 } from "@chakra-ui/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,6 +38,7 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
   initialPage = 0,
   rowsPerPageOptions = [8],
   onPageChange,
+  isLoading = false,
 }) => {
   const [first, setFirst] = useState(initialPage * rowsPerPageOptions[0]);
   const [rows, setRows] = useState(rowsPerPageOptions[0]);
@@ -135,19 +137,25 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
           </Tr>
         </Thead>
         <Tbody>
-          {data.length > 0 ? (
+          {isLoading ? (
+            <Tr>
+              <Td colSpan={columns.length} textAlign="center">
+                <Spinner />
+              </Td>
+            </Tr>
+          ) : data.length > 0 ? (
             data.slice(first, first + rows).map((row, rowIndex) => (
-              <Tr 
-                _hover={{backgroundColor: '#F3F3F3'}} 
-                transition={'0.2s ease'} 
-                onClick={() => sendToSubpage(row?._id)} 
+              <Tr
+                _hover={{ backgroundColor: '#F3F3F3' }}
+                transition={'0.2s ease'}
+                onClick={() => sendToSubpage(row?._id)}
                 key={rowIndex}
                 cursor={'pointer'}
               >
                 {columns.map((column, colIndex) => (
                   <Td key={colIndex}>
                     {column.type === "badge" ? (
-                      <StatusBadgeComponent 
+                      <StatusBadgeComponent
                         status={row[column.key]}
                       />
                     ) : column.type === "date" ? (
