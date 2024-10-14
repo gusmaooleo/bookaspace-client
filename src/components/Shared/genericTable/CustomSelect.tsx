@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Menu,
   MenuButton,
@@ -10,13 +10,31 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CustomSelectProps } from "@/utils/interfaces/CustomSelect";
+import { CustomSelectProps, Option } from "@/utils/interfaces/CustomSelect";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-function CustomSelect({ options, placeholder, setValue }: CustomSelectProps) {
+function CustomSelect({ options, placeholder, setValue, value }: CustomSelectProps) {
   const [selectedStatus, setSelectedStatus] = useState(placeholder);
   const [boxColor, setBoxColor] = useState<string>();
   const [icon, setIcon] = useState<IconProp>();
+
+  useEffect(() => {
+    if (value) {
+      const selectedOption = options.find(option => option.value === value);
+      if (selectedOption) {
+        setSelectedStatus(selectedOption.label);
+        setBoxColor(selectedOption.color);
+        setIcon(selectedOption.icon);
+      }
+    }
+  }, [value, options]);
+
+  const handleSelect = (option: Option) => {
+    setSelectedStatus(option.label);
+    setValue(option.value);
+    setBoxColor(option.color);
+    setIcon(option.icon);
+  };
 
   return (
     <Menu>
@@ -38,12 +56,7 @@ function CustomSelect({ options, placeholder, setValue }: CustomSelectProps) {
       </MenuButton>
       <MenuList>
         {options.map((option, index) => (
-          <MenuItem key={index} color={"black"} onClick={() => {
-            setSelectedStatus(option.label)
-            setValue(option.label)
-            setBoxColor(option.color)
-            setIcon(option.icon)
-          }}>
+          <MenuItem key={index} color={"black"} onClick={() => handleSelect(option)}>
             {option.label}
             <Spacer />
             {option.icon ? (

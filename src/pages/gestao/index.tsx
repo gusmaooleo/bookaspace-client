@@ -12,6 +12,7 @@ import CreateUserFormComponent from '@/components/Form/createUserForm/createUser
 import { User } from '@/utils/interfaces/User';
 import GestaoService from '@/services/gestao/GestaoService';
 import DeleteTextModalComponent from '@/components/UserInterface/deleteTextModal/DeleteTextModalComponent';
+import { Audit } from '@/utils/interfaces/Audit';
 
 type ModalType = 'create' | 'edit' | 'delete' | null;
 
@@ -20,6 +21,7 @@ const gestao = () => {
   const [modalType, setModalType] = useState<ModalType>(null);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [usuariosData, setUsuariosData] = useState<User[]>([]);
+  const [auditsData, setAuditsData] = useState<Audit[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -35,34 +37,26 @@ const gestao = () => {
       }
     };
 
+    const fetchAudits = async () => {
+      try {
+        const audits = await GestaoService.getAudits();
+        setAuditsData(Array.isArray(audits) ? audits : []);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        setAuditsData([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAudits();
     fetchUsers();
   }, []);
 
-  const eventosData = [
-    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'alice', tipo: 'saiu', data: '10/10/2024 às 14:00' },
-    { usuario: 'alice', tipo: 'logou-se', data: '10/10/2024 às 14:00' },
-    { usuario: 'bob', tipo: 'editou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'bob', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'johndoe', tipo: 'aprovou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-    { usuario: 'johndoe', tipo: 'solicitou uma reserva', data: '10/10/2024 às 14:00' },
-  ];
-
-  // const usuariosData = Database.users;
-
   const eventosColumns = [
-    { header: 'Usuário', key: 'usuario' },
-    { header: 'Tipo de evento', key: 'tipo' },
-    { header: 'Data', key: 'data' },
+    { header: 'Usuário', key: 'username' },
+    { header: 'Tipo de evento', key: 'action' },
+    { header: 'Data', key: 'timestamp' },
   ];
 
   const usuariosColumns: Column[] = [
@@ -131,11 +125,11 @@ const gestao = () => {
   const renderModalComponent = () => {
     switch (modalType) {
       case 'create':
-        return <CreateUserFormComponent onClose={() => setIsModalOpen(false)} />;
+        return <CreateUserFormComponent onClose={() => setIsModalOpen(false)}  submitButtonLabel='Criar usuário'/>;
       case 'edit':
-        // return <EditUserModalComponent user={selectedUser} />;
+        return <CreateUserFormComponent onClose={() => setIsModalOpen(false)} user={selectedUser ?? undefined} submitButtonLabel='Editar usuário' />;
       case 'delete':
-        return <DeleteTextModalComponent />;
+        return <DeleteTextModalComponent onClose={() => setIsModalOpen(false)} idUser={selectedUser?.id ?? undefined}/>;
       default:
         return null;
     }
@@ -166,13 +160,14 @@ const gestao = () => {
           <h2 className='mb-6'>Rastreador de eventos</h2>
           <TabelaReutilizavel
             columns={eventosColumns}
-            data={eventosData}
+            data={auditsData}
             filters={[]}
             textButtons={textButtonsEvents}
-            totalRecords={eventosData.length}
+            totalRecords={auditsData.length}
             initialPage={currentPage}
             rowsPerPageOptions={[10]}
             onPageChange={handlePageChange}
+            isLoading={isLoading}
           />
         </Box>
         <Box flex={1} ml={4}>
