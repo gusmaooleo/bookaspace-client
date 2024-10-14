@@ -12,7 +12,7 @@ export const useSpace = () => {
       setSpaces()
       console.log('spaces loaded')
     }
-  }, [getSpaces])
+  }, [])
 
 
   return {

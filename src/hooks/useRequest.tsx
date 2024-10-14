@@ -12,7 +12,7 @@ export const useRequest = () => {
       setRequests()
       console.log('requests loaded')
     }
-  }, [getRequests])
+  }, [])
 
 
   return {

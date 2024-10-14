@@ -9,7 +9,7 @@ import { Option } from "../interfaces/CustomSelect";
 
 export const spaceColumns: Column[] = [
   { header: "Nome do espaço", key: "name" },
-  { header: "Tipo", key: "type" },
+  { header: "Tipo", key: "type", type: 'format' },
   { header: "Capacidade", key: "capacity" },
   { header: "Disponibilidade", key: "availability", type: "badge" as const },
 ];

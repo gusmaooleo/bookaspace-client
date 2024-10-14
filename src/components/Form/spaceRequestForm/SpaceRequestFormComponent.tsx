@@ -11,9 +11,13 @@ import { Dropdown, DropdownChangeEvent } from "primereact/dropdown";
 import { Calendar } from "primereact/calendar";
 import { useSpaceRequestForm } from "@/hooks/useSpaceRequestForm";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { useUserSession } from "@/contexts/userContext";
+import { SpaceRequest } from "@/utils/interfaces/SpaceRequest";
 import WarningTextComponent from "@/components/UserInterface/warningText/WarningTextComponent";
+import RequestService from "@/services/requests/RequestService";
+import { useRequest } from "@/hooks/useRequest";
+import { addMinutes, format } from "date-fns";
 import "./index.css";
-import { useUser } from "@/contexts/userContext";
 
 const SpaceRequestFormComponent: React.FC = () => {
   const {
@@ -30,22 +34,50 @@ const SpaceRequestFormComponent: React.FC = () => {
     options,
     currentDateMessage
   } = useSpaceRequestForm();
-  const { user, setUser } = useUser();
+  const { setRequests } = useRequest()
+  const { user } = useUserSession();
   const toast = useToast();
+  const spaceRequestService = new RequestService()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (selectedDate[0] > new Date()) {
-      const payload = {
-        "userId": user?.id,
-        "physicalSpaceId": space?.id,
-        "dateTimeStart": selectedDate[0], 
-        "dateTimeEnd": selectedDate[1], 
-        // title: title,
+    if (selectedDate[0] > new Date() && space && space.id && user) {
+      const spaceRequest: SpaceRequest = {
+        "userId": user.id,
+        "physicalSpaceId": space.id,
+        "dateTimeStart": selectedDate[0].toISOString(), 
+        "dateTimeEnd": selectedDate[1].toISOString(), 
+        "title": title,
         "needs": description,
       }
-      console.log(payload);
+      console.log(spaceRequest);
+      try {
+        const payload = await spaceRequestService.sendRequest(spaceRequest);
+        if (payload.id) {
+          toast({
+            title: 'Sucesso',
+            description: 'Solicitação criada com sucesso.',
+            status: 'success',
+            position: 'top-right'
+          })
+          setRequests();
+        } else {
+          toast({
+            title: 'Erro',
+            description: 'Não foi possível criar solicitação. Verifique os dados do formulário.',
+            status: 'error',
+            position: 'top-right'
+          })
+        }
+      } catch (error) {
+        toast({
+          title: 'Erro',
+          description: 'Não foi possível criar solicitação. Verifique os dados do formulário.',
+          status: 'error',
+          position: 'top-right'
+        })
+      }
     } else {
       toast({
         title: 'Erro',

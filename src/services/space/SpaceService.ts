@@ -11,7 +11,7 @@ interface FilterObjects {
 }
 
 class SpaceService {
-  filterObjects: FilterObjects = {
+  private filterObjects: FilterObjects = {
     spaceCapacityObject: [],
     spaceNameObject: [],
     typeObject: [],

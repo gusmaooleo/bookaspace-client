@@ -3,9 +3,10 @@ import { SpaceRequest } from "./SpaceRequest";
 
 export interface User {
   id: number,
-  username: string,
+  usernameUser: string,
   login: string,
-  role: Roles[],
+  roles: Roles[],
+  roleName?: string;
   requests: SpaceRequest[],
   approvalHistories: any[],
 }

@@ -1,13 +1,13 @@
 import CustomInputBoxComponent from "@/components/Input/customInputBox/CustomInputBoxComponent";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo, faKey, faUser } from "@fortawesome/free-solid-svg-icons";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Checkbox, FormControl, FormErrorMessage, Input, useToast } from "@chakra-ui/react";
 import ProfilePicComponent from "@/components/Icons/profilePic/ProfilePicComponent";
 import { UserLogin } from "@/utils/interfaces/UserLogin";
 import UserService from "@/services/user/UserService";
 import { useRouter } from "next/router";
-import { useUser } from '../../../contexts/userContext';
+import { useUserSession } from '../../../contexts/userContext';
 import Link from "next/link";
 import "./index.css";
 
@@ -19,7 +19,7 @@ const LoginFormComponent = () => {
   const toast = useToast({ position: 'top-right' });
   const router = useRouter();
   const userService = new UserService();
-  const { user, setUser } = useUser();
+  const { user, setUser } = useUserSession();
 
   const [errors, setErrors] = useState({ login: "", password: "" });
 
@@ -76,13 +76,13 @@ const LoginFormComponent = () => {
   return (
     <div className="flex items-center flex-col">
       <div className="dynamic-profile-pic">
-        <ProfilePicComponent subject={user?.username || "none"} />
+        <ProfilePicComponent subject={user?.usernameUser || "none"} />
       </div>
       <form className="login-form">
 
         <div className="w-full text-center pb-8 pt-4">
-          {user?.username && (
-            <p className="font-semibold">Bem vindo, <span className="italic">{ user.username }</span>!</p>
+          {user?.usernameUser && (
+            <p className="font-semibold">Bem vindo, <span className="italic">{ user.usernameUser }</span>!</p>
           )}
         </div>
 

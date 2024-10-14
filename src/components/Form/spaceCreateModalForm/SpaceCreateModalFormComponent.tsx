@@ -41,26 +41,6 @@ const SpaceCreateModalFormComponent: FC<SpaceCreateModalProps> = ({ onClose }) =
   const spaceService = new SpaceService();
   const toast = useToast();
 
-
-  const spaceTypes = [
-    { name: "Sala de aula", value: "CLASSROOM" },
-    { name: "Auditório", value: "AUDITORIUM" },
-    { name: "Laboratório", value: "LABORATORY" },
-  ];
-
-  const decideType = (type: string) => {
-    switch (type) {
-      case "Sala de aula":
-        return 'CLASSROOM';
-      case "Auditório":
-        return 'AUDITORIUM';
-      case "Laboratório":
-        return 'LABORATORY';
-      default:
-        return "";
-    }
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 

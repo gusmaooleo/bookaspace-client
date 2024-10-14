@@ -3,8 +3,8 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 export interface Column {
     header: string;
-    key: string;
-    type?: 'badge' | 'date' | 'avatar';
+    key: string; 
+    type?: 'badge' | 'date' | 'avatar' | 'format';
 }
 
 export interface Filter {
@@ -45,7 +45,7 @@ interface ReusableTableProps {
     rowsPerPageOptions?: number[];
     onPageChange: (event: PageChangeEvent) => void;
     isLoading?: boolean;
-    filtersComponent: React.ReactNode;
+    filtersComponent?: React.ReactNode;
 }
 
 export interface PageChangeEvent {

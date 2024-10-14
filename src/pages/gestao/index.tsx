@@ -12,6 +12,7 @@ import CreateUserFormComponent from '@/components/Form/createUserForm/createUser
 import { User } from '@/utils/interfaces/User';
 import GestaoService from '@/services/gestao/GestaoService';
 import DeleteTextModalComponent from '@/components/UserInterface/deleteTextModal/DeleteTextModalComponent';
+import { FormatRole } from '@/utils/formatters/GeneralStateFormatter';
 
 type ModalType = 'create' | 'edit' | 'delete' | null;
 
@@ -26,6 +27,13 @@ const gestao = () => {
     const fetchUsers = async () => {
       try {
         const users = await GestaoService.getUsers();
+        // users.map((user) => {
+        //   user['roleName'] = user.role[0].authority;
+        // })
+        for (let obj of users) {
+          console.log(obj)
+          obj['roleName'] = FormatRole(obj.roles[0].id);
+        }
         setUsuariosData(Array.isArray(users) ? users : []);
       } catch (error) {
         console.error('Error fetching users:', error);
@@ -66,10 +74,10 @@ const gestao = () => {
   ];
 
   const usuariosColumns: Column[] = [
-    { header: '', key: 'username', type: 'avatar' },
+    { header: '', key: 'usernameUser', type: 'avatar' },
     { header: 'Login', key: 'login' },
-    { header: 'Nome do usuário', key: 'username' },
-    { header: 'Cargo', key: 'role' },
+    { header: 'Nome do usuário', key: 'usernameUser' },
+    { header: 'Cargo', key: 'roleName' },
     { header: 'Ações', key: 'acoes' },
   ];
 
@@ -167,7 +175,6 @@ const gestao = () => {
           <TabelaReutilizavel
             columns={eventosColumns}
             data={eventosData}
-            filters={[]}
             textButtons={textButtonsEvents}
             totalRecords={eventosData.length}
             initialPage={currentPage}
@@ -199,7 +206,6 @@ const gestao = () => {
                 </Flex>
               ),
             }))}
-            filters={[]}
             colorHeader='white'
             textButtons={textButtonsUser}
             totalRecords={usuariosData.length}

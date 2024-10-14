@@ -5,27 +5,37 @@ import { GenericSubpage } from "@/utils/interfaces/GenericSubpage";
 import { Space } from "@/utils/interfaces/Space";
 import { SpaceItemFormatter } from "@/utils/formatters/SpaceItemFormatter";
 import { useSpace } from "@/hooks/useSpace";
+import SpaceService from "@/services/space/SpaceService";
 
 const Espacos = () => {
   const router = useRouter();
   const [espaco, setEspaco] = useState<Space | null>(null);
   const [payload, setPayload] = useState<GenericSubpage[] | null>(null);
-  const { id } = router.query;
   const { getSpaces } = useSpace(); 
-
-
-  // simula chamadas a api etc
+  const { id } = router.query;
+  const spaceService = new SpaceService();
 
   useEffect(() => {
-    const space = getSpaces.find(
-      (obj) => obj["id"] === Number(id)
-    )
-    setEspaco(space || null);
-  }, []);
+    const fetchData = async () => {
+      const space = getSpaces.find(
+        (obj) => obj["id"] === Number(id)
+      )
+      if (space) {
+        setEspaco(space);
+      } else {
+        try {
+          const fetchSpace = await spaceService.getSpaceById(String(id));
+          setEspaco(fetchSpace);
+        } catch (error) {
+          router.push('/error')
+        }
+      }
+    }
+    fetchData();
+  }, [id]);
 
   useEffect(() => {
     if (espaco) {
-      console.log(espaco)
       setPayload(SpaceItemFormatter(espaco))
     }
   }, [espaco])

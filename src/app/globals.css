@@ -81,10 +81,31 @@ h3 {
   align-items: center !important;
 }
 
+.chakra-modal__header {
+  padding-bottom: 0 !important;
+}
+
 .p-inputtext:focus {
   box-shadow: none !important;
 }
 
 .p-dropdown-items {
   max-height: 30vmin !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c5ccd6;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3ac;
 }

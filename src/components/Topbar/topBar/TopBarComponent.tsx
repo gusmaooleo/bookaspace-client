@@ -45,13 +45,13 @@ const TopBarComponent = () => {
         {/* gets subject from localstorage */}
         <div className="h-12 w-12 mt-1 cursor-pointer">
           <ProfilePicComponent
-            subject={user?.username || "none"}
+            subject={user?.usernameUser || "none"}
             border={true}
             not_shadow={true}
           />
         </div>
         <div className="flex flex-col gap-1 text-box">
-          <p>{user?.username || ""}</p>
+          <p>{user?.usernameUser || ""}</p>
           <p>{FormatRole(user?.roles[0].id) || ""}</p>
         </div>
       </div>

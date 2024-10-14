@@ -53,7 +53,19 @@ class UserService {
       throw error;
     }
   }
-
+  
+  async getAll(): Promise<User[]> {
+    try {
+      const payload = await axios.get<{ content: User[] }>(`${environments.url}/users`, {
+        headers: {
+          "Authorization": `Bearer ${Cookies.get("user_token")}`
+        }
+      })
+      return payload.data.content;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   loadDataSession(token: string, userData: User, expiration: number, isTemp: boolean) {
     if (isTemp) {

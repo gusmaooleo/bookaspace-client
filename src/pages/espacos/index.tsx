@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   faAdd,
-  faBuildingUser,
   faFilter,
-  faFlaskVial,
-  faGraduationCap,
 } from "@fortawesome/free-solid-svg-icons";
 import { PageChangeEvent } from "@/utils/interfaces/ReusableTable";
 import { Space } from "@/utils/interfaces/Space";
@@ -79,9 +76,6 @@ const Espacos: React.FC = () => {
   const spaceService = new SpaceService();
 
 
-
-
-
   const handleFilter = async () => {
     const filter: SpaceFilterModel = {
       type: tipo,
@@ -98,8 +92,6 @@ const Espacos: React.FC = () => {
   };
 
 
-
-
   useEffect(() => {
     setData(getSpaces);
     setTotalRecords(getSpaces.length)
@@ -107,7 +99,6 @@ const Espacos: React.FC = () => {
 
   const openModal = () => {
     setIsModalOpen(true);
-    console.log("lesgo");
   };
 
   function handlePageChange(event: PageChangeEvent) {

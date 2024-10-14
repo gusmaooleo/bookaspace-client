@@ -12,7 +12,7 @@ interface UserProviderProps {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const useUser = () => {
+export const useUserSession = () => {
   const context = useContext(UserContext);
   if (!context) {
     throw new Error('Father component is not part of a context')

@@ -3,16 +3,16 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { DateSelectArg } from '@fullcalendar/core/index.js';
-import './index.css'
+import { DateSelectArg, EventInput } from '@fullcalendar/core/index.js';
 import { calendarService } from '@/services/calendarService';
+import { useEffect, useState } from 'react';
+import { useRequest } from '@/hooks/useRequest';
+import { format } from 'date-fns';
+import './index.css'
 
-interface CalendarProps {
-  value: any,
-  method: () => void,
-}
-
-const CalendarComponent = (/* { value, method }: CalendarProps */) => {
+const CalendarComponent = () => {
+  const [requestsList, setRequestsList] = useState<EventInput[]>()
+  const { getRequests } = useRequest();
 
   const handleDateSelect = (selectInfo: DateSelectArg) => {
     calendarService.setSelectedDate({
@@ -21,6 +21,23 @@ const CalendarComponent = (/* { value, method }: CalendarProps */) => {
       allDay: selectInfo.allDay,
     })
   }
+
+  useEffect(() => {
+    let events: EventInput[] = [] 
+    getRequests.map((obj) => {
+      if (obj.status === 'APPROVED' || obj.status === 'PENDING') {
+        const event: EventInput = {
+          'title': obj.title,
+          'start': format(obj.dateTimeStart, "yyyy-MM-dd'T'HH:mm:ss"),
+          'end': format(obj.dateTimeEnd, "yyyy-MM-dd'T'HH:mm:ss"),
+          'color': obj.status === 'APPROVED' ?  '#68d68a' : '#ffe55f',
+          'url': `/solicitacoes/${obj.id}`
+        }
+        events.push(event) 
+      }
+    })
+    setRequestsList(events);
+  }, [getRequests])
   
   return (
     <div className='flex calendar-overwrite' aria-pressed='false'>
@@ -28,12 +45,7 @@ const CalendarComponent = (/* { value, method }: CalendarProps */) => {
         plugins={[ dayGridPlugin, timeGridPlugin, interactionPlugin ]}
         initialView='dayGridMonth'
         locale={pt_br_locale}
-        events={[
-          {title: 'evento', date: '2024-09-28', start: '2024-09-28T14:30:00', end: '2024-09-28T16:00:00'},
-          {title: 'evento', date: '2024-09-28', start: '2024-09-28T14:30:00', end: '2024-09-28T16:00:00'},
-          {title: 'evento', date: '2024-09-28', start: '2024-09-28T14:30:00', end: '2024-09-28T16:00:00'},
-          {title: 'evento', date: '2024-09-28', allDay: true},
-        ]}
+        events={requestsList}
         headerToolbar={{
           left: 'prev,next today',
           center: 'title',
