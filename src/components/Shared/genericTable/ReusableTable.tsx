@@ -18,13 +18,12 @@ import {
 } from "@chakra-ui/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
 import {
   PageChangeEvent,
   ReusableTableProps,
 } from "@/utils/interfaces/ReusableTable";
-import CustomSelect from "./CustomSelect";
 import StatusBadgeComponent from "../../UserInterface/statusBadge/StatusBadgeComponent";
 import { useRouter } from "next/router";
 import ProfilePicComponent from "@/components/Icons/profilePic/ProfilePicComponent";
@@ -32,7 +31,6 @@ import ProfilePicComponent from "@/components/Icons/profilePic/ProfilePicCompone
 const ReusableTable: React.FC<ReusableTableProps> = ({
   columns,
   data,
-  filters,
   textButtons,
   redirectRow,
   onRegister,
@@ -42,6 +40,7 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
   rowsPerPageOptions = [8],
   onPageChange,
   isLoading,
+  filtersComponent
 }) => {
   const [first, setFirst] = useState(initialPage * rowsPerPageOptions[0]);
   const [rows, setRows] = useState(rowsPerPageOptions[0]);
@@ -96,32 +95,9 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
         borderTopRadius="lg"
         boxShadow="md"
       >
-        <HStack spacing={4} my={1}>
-          {filters.map((filter, index) => (
-            <div key={index}>
-              <CustomSelect
-                options={filter.options}
-                placeholder={filter.placeholder}
-                setValue={setType}
-              />
-            </div>
-          ))}
 
-          {textButtons.map((textButton, index) => (
-            <InputGroup
-              variant={textButton?.variant || "light"}
-              w="fit-content"
-              key={index}
-            >
-              <Input placeholder={textButton.placeholder} />
-              <InputRightElement>
-                <FontAwesomeIcon
-                  icon={textButton.icon}
-                  color={textButton?.variant === "dark" ? "#f4f7f5" : "#868686"}
-                />
-              </InputRightElement>
-            </InputGroup>
-          ))}
+        <HStack spacing={4} my={1}>
+          {filtersComponent}
 
           <Spacer />
           {onRegister && (

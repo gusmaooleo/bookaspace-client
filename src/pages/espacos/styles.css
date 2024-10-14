@@ -1,4 +1,12 @@
  /* Set styles to espacosPage here! */
 
 
+.p-inputwrapper {
+  height: 4.2vmin !important;
+}
+
+.p-dropdown-label {
+  display: flex;
+  align-items: center;
+}
 

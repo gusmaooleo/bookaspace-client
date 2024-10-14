@@ -25,6 +25,7 @@ import SpaceService from "@/services/space/SpaceService";
 import "./index.css";
 import { Space } from "@/utils/interfaces/Space";
 import { useSpace } from "@/hooks/useSpace";
+import { Option } from "@/utils/interfaces/CustomSelect";
 
 interface SpaceCreateModalProps {
   onClose: () => void,
@@ -76,7 +77,7 @@ const SpaceCreateModalFormComponent: FC<SpaceCreateModalProps> = ({ onClose }) =
     const spaceData: Space = {
       "name": name,
       "location": location,
-      "type": decideType(type),
+      "type": type,
       "capacity": capacity,
       "resources": description,
     }
@@ -107,14 +108,11 @@ const SpaceCreateModalFormComponent: FC<SpaceCreateModalProps> = ({ onClose }) =
     setCapacity(value);
   };
 
-  const spaceFields = {
-    placeholder: "Selecione o tipo",
-    options: [
-      { label: "Sala de aula", icon: faGraduationCap },
-      { label: "Auditório", icon: faBuildingUser },
-      { label: "Laboratório", icon: faFlaskVial },
-    ],
-  };
+  const spaceFields: Option[] = [
+    { label: "Sala de aula", icon: faGraduationCap, value: 'CLASSROOM' },
+    { label: "Auditório", icon: faBuildingUser, value: 'AUDITORIUM' },
+    { label: "Laboratório", icon: faFlaskVial, value: 'LABORATORY' },
+  ];
 
   return (
     <div className="space-create-user-container">
@@ -152,8 +150,7 @@ const SpaceCreateModalFormComponent: FC<SpaceCreateModalProps> = ({ onClose }) =
           <FormControl mb={2}>
             <FormLabel>Tipo do espaço</FormLabel>
             <CustomSelect
-              options={spaceFields.options}
-              placeholder={spaceFields.placeholder}
+              options={spaceFields}
               setValue={setType}
             />
           </FormControl>

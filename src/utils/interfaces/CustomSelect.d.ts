@@ -4,10 +4,10 @@ export interface Option {
     label: string;
     color?: string;
     icon?: IconDefinition;
+    value: string;
 }
 
 export interface CustomSelectProps {
-    placeholder: string;
     options: Option[];
     setValue: React.Dispatch<React.SetStateAction<string>>;
 }

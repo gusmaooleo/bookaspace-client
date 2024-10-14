@@ -1,68 +1,67 @@
 import TabelaReutilizavel from "@/components/Shared/genericTable/ReusableTable";
 import React, { useState, useEffect } from "react";
 import {
-  faArrowDown,
-  faArrowUp,
   faUser,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { PageChangeEvent } from "@/utils/interfaces/ReusableTable";
 import { SpaceRequest } from "@/utils/interfaces/SpaceRequest";
-import { formatDate } from "@/utils/formatters/DateTimeFormatter";
-import Database from "@/utils/Database";
+import RequestService from "@/services/requests/RequestService";
 import "./styles.css";
+import { formatDate } from '../../utils/formatters/DateTimeFormatter';
 
 const Solicitacoes = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(8);
-  const [data, setData] = useState<SpaceRequest[]>(Database.spaceRequests);
+  const [data, setData] = useState<SpaceRequest[]>([]);
   const [totalRecords, setTotalRecords] = useState(data.length);
+  const requestService = new RequestService();
 
   useEffect(() => {
-    let dummy: SpaceRequest[] = [];
-    for (let obj of data) {
-      let spaceObject: SpaceRequest = {
-        ...obj,
-      };
-      spaceObject.requester_name =
-        obj.requester?.username || "Nome indisponível";
-      spaceObject.periodText = `${formatDate(obj.startDate)} até ${formatDate(
-        obj.endDate
-      )}`;
-      spaceObject.openRequestDate = formatDate(obj.openRequestDate);
-      dummy.push(spaceObject);
+    const fetchData = async () => {
+      const payload = await requestService.getAllRequests();
+      let dummy: SpaceRequest[] = [
+        ...payload
+      ]
+      for (let obj of dummy) {
+        obj["dateCreationRequest"] = formatDate(obj["dateCreationRequest"])
+        obj["dateTimeStart"] = formatDate(obj["dateTimeStart"])
+        obj["dateTimeEnd"] = formatDate(obj["dateTimeEnd"])
+      }
+      setData(dummy);
     }
-    setData(dummy);
+    fetchData();
   }, []);
 
   const columns = [
-    { header: "Solicitante", key: "requester_name" },
+    // { header: "Solicitante", key: "requester_name" },
     { header: "Título da solicitação", key: "title" },
-    { header: "Período", key: "periodText" },
+    { header: "Início", key: "dateTimeStart" },
+    { header: "Final", key: "dateTimeEnd" },
     { header: "Status", key: "status", type: "badge" as const },
-    { header: "Criado em", key: "openRequestDate", type: "date" as const },
+    { header: "Criado em", key: "dateCreationRequest", type: "date" as const },
   ];
 
-  const filters = [
-    {
-      placeholder: "Ordenar por",
-      options: [
-        { label: "Todos",},
-        { label: "Mais recente", icon: faArrowUp },
-        { label: "Mais antigo", icon: faArrowDown },
-      ],
-    },
-    {
-      placeholder: "Status",
-      options: [
-        { label: "Todos", },
-        { label: "Aguardando aprovação", color: "#FFE55F" },
-        { label: "Aprovada", color: "#68D68A" },
-        { label: "Reprovada", color: "#F97E7A" },
-        { label: "Fora do prazo", color: "#868686" },
-      ],
-    },
-  ];
+  // const filters = [
+  //   {
+  //     placeholder: "Ordenar por",
+  //     options: [
+  //       { label: "Todos",},
+  //       { label: "Mais recente", icon: faArrowUp },
+  //       { label: "Mais antigo", icon: faArrowDown },
+  //     ],
+  //   },
+  //   {
+  //     placeholder: "Status",
+  //     options: [
+  //       { label: "Todos", },
+  //       { label: "Aguardando aprovação", color: "#FFE55F" },
+  //       { label: "Aprovada", color: "#68D68A" },
+  //       { label: "Reprovada", color: "#F97E7A" },
+  //       { label: "Fora do prazo", color: "#868686" },
+  //     ],
+  //   },
+  // ];
 
   const textButtons = [
     { placeholder: "Título de solicitação", icon: faSearch },
@@ -91,12 +90,12 @@ const Solicitacoes = () => {
       <TabelaReutilizavel
         columns={columns}
         data={data}
-        filters={filters}
         textButtons={textButtons}
         totalRecords={totalRecords}
         initialPage={currentPage}
         onPageChange={handlePageChange}
-        redirectRow={true}
+        redirectRow={true} 
+        filtersComponent={undefined}
       />
     </div>
   );

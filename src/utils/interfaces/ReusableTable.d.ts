@@ -36,7 +36,6 @@ export interface ParentComponentProps {
 interface ReusableTableProps {
     columns: Column[];
     data: Record<string, any>[];
-    filters: Filter[];
     redirectRow?: boolean;
     textButtons: TextButton[];
     onRegister?: RegisterButton;
@@ -45,7 +44,8 @@ interface ReusableTableProps {
     initialPage?: number;
     rowsPerPageOptions?: number[];
     onPageChange: (event: PageChangeEvent) => void;
-    isLoading?: boolean,
+    isLoading?: boolean;
+    filtersComponent: React.ReactNode;
 }
 
 export interface PageChangeEvent {

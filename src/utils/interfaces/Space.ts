@@ -5,10 +5,10 @@ export interface Space {
   creator?: User,
   name: string,
   location: string,
-  type: 'CLASSROOM' | 'AUDITORIUM' | 'LABORATORY' | "",
+  type: 'CLASSROOM' | 'AUDITORIUM' | 'LABORATORY' | string,
   capacity: number,
   resources: string,
   creation?: string,
-  availability: boolean,
+  availability?: boolean,
   status?: 'AVAILABLE' | 'UNAVAILABLE',
 }

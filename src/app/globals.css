@@ -80,3 +80,11 @@ h3 {
 .chakra-modal__content-container {
   align-items: center !important;
 }
+
+.p-inputtext:focus {
+  box-shadow: none !important;
+}
+
+.p-dropdown-items {
+  max-height: 30vmin !important;
+}
