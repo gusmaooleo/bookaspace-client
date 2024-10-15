@@ -16,10 +16,16 @@ import { SpaceRequest } from "@/utils/interfaces/SpaceRequest";
 import WarningTextComponent from "@/components/UserInterface/warningText/WarningTextComponent";
 import RequestService from "@/services/requests/RequestService";
 import { useRequest } from "@/hooks/useRequest";
-import { addMinutes, format } from "date-fns";
+import { FC, useEffect } from "react";
+import { Space } from "@/utils/interfaces/Space";
 import "./index.css";
 
-const SpaceRequestFormComponent: React.FC = () => {
+interface SpaceRequestFormProps {
+  request?: SpaceRequest | null,
+  id?: number,
+}
+
+const SpaceRequestFormComponent: FC<SpaceRequestFormProps> = ({ request, id }) => {
   const {
     space,
     setSpace,
@@ -37,7 +43,18 @@ const SpaceRequestFormComponent: React.FC = () => {
   const { setRequests } = useRequest()
   const { user } = useUserSession();
   const toast = useToast();
-  const spaceRequestService = new RequestService()
+  const spaceRequestService = new RequestService();
+
+
+  useEffect(() => {
+    if (request && request.id && options) {
+      const foundSpace: Space | undefined = options.find(value => value.id === request.physicalSpaceId)
+      setSpace(foundSpace || null)
+      setTitle(request.title)
+      setSelectedDate([new Date(request.dateTimeStart), new Date(request.dateTimeEnd)])
+      setDesciption(request.needs)
+    }
+  }, [options])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,7 +70,13 @@ const SpaceRequestFormComponent: React.FC = () => {
       }
       console.log(spaceRequest);
       try {
-        const payload = await spaceRequestService.sendRequest(spaceRequest);
+        let payload;
+        if (request) {
+          spaceRequest['id'] = id;
+          payload = await spaceRequestService.putRequest(spaceRequest);
+        } else {
+          payload = await spaceRequestService.sendRequest(spaceRequest);
+        }
         if (payload.id) {
           toast({
             title: 'Sucesso',
@@ -90,9 +113,8 @@ const SpaceRequestFormComponent: React.FC = () => {
 
   return (
     <div className="space-resgister-containter">
-      <h2 className="mb-6">Solicitar reserva</h2>
       <form
-        className="space-register-form-container p-8"
+        className={request ? "w-fullsized p-8" : "space-register-form-container p-8"}
         onSubmit={handleSubmit}
       >
         <div className="flex flex-col items-center gap-[2vmin] text-[#f4f7f5]">

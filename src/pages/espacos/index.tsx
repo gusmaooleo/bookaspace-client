@@ -108,7 +108,7 @@ const Espacos: React.FC = () => {
 
   return (
     <div className="page p-20">
-      <h2 className="mb-6">Espaços</h2>
+      <h2 className="mb-6 page-title-margin">Espaços</h2>
       <ReusableTable
         columns={spaceColumns}
         data={data}

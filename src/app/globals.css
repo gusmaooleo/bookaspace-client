@@ -67,6 +67,14 @@ h3 {
   color: var(--foreground);
 }
 
+.page-title-margin {
+  margin-top: -3.5vmin !important;
+}
+
+.p-datepicker {
+  z-index: 10000;
+}
+
 .p-datepicker-title {
   display: flex;
   flex-direction: row;

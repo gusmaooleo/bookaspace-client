@@ -30,7 +30,9 @@ const DynamicModal: React.FC<DynamicModalProps> = ({
           {title}
           <ModalCloseButton color={"#fff"} marginTop={"1rem"} />
         </ModalHeader>
-        <ModalBody padding={"0rem"}>{component}</ModalBody>
+        <ModalBody padding={"0rem"}>
+          {component}
+        </ModalBody>
       </ModalContent>
     </Modal>
   );

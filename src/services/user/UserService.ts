@@ -4,6 +4,21 @@ import { User } from "@/utils/interfaces/User";
 import Cookies from 'js-cookie';
 import axios from "axios";
 
+interface CreateUserData {
+  usernameUser: string;
+  login: string;
+  password: string;
+  roles: { id: number }[];
+}
+
+interface UpdateUserData {
+  id: number,
+  usernameUser: string;
+  login: string;
+  roles: { id: number, authority: string }[];
+}
+
+
 class UserService {
   /**
    * Serviço de login, envia a requisição, resgata o token e carrega as informações do usuário no localstorage.
@@ -41,7 +56,7 @@ class UserService {
    * @param token 
    * @returns 
    */
-  async getMe(token: string): Promise<User | any> {
+  async getMe(token: string): Promise<User> {
     try {
       const payload = await axios.get(`${environments.url}/users/me`, {
         headers: {
@@ -66,6 +81,19 @@ class UserService {
       throw error;
     }
   }
+  
+  async getById(id: number): Promise<User> {
+    try {
+      const payload = await axios.get(`${environments.url}/users/${id}`, {
+        headers: {
+          "Authorization": `Bearer ${Cookies.get("user_token")}`
+        }
+      })
+      return payload.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   loadDataSession(token: string, userData: User, expiration: number, isTemp: boolean) {
     if (isTemp) {
@@ -74,6 +102,61 @@ class UserService {
       Cookies.set('user_token', token, { path: '/'})
     }
     localStorage.setItem('user_data', JSON.stringify(userData));
+  }
+
+  async createUser(userData: CreateUserData): Promise<User> {
+    try {
+      const response = await axios.post(`${environments.url}/users`, userData, {
+        headers: {
+          "Authorization": `Bearer ${this.getToken()}`,
+          "Content-Type": "application/json"
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error creating user:", error);
+      throw error;
+    }
+  }
+
+  async updateUser(userId: number, userData: UpdateUserData): Promise<User> {
+    try {
+      const token = this.getToken();
+      const response = await axios.put(`${environments.url}/users/${userId}`, userData, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error("Error updating user:", error);
+      throw error;
+    }
+  }
+
+  async deleteUser(userId: number): Promise<void> {
+    try {
+      const token = this.getToken();
+      await axios.delete(`${environments.url}/users/${userId}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      throw error;
+    }
+  }
+
+
+  private getToken(): string {
+    const token = Cookies.get('user_token');
+    if (!token) {
+      throw new Error('No token found');
+    }
+    return token;
   }
 
   logOut() {

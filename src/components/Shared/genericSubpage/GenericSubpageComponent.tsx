@@ -8,6 +8,7 @@ interface GenericSubpageProps {
   value: string;
   _id?: number | string;
   status?: string | boolean;
+  actions?: React.ReactNode;
   genericItem: GenericSubpage[];
 }
 
@@ -15,6 +16,7 @@ const GenericSubpageComponent = ({
   value,
   _id,
   status,
+  actions,
   genericItem,
 }: GenericSubpageProps) => {
   return (
@@ -40,7 +42,7 @@ const GenericSubpageComponent = ({
         </div>
       </div>
       <ActionsSubpageComponent 
-
+        value={actions}
       />
     </div>
   );

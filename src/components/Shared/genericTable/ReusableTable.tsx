@@ -10,15 +10,12 @@ import {
   Box,
   Text,
   HStack,
-  InputGroup,
-  Input,
-  InputRightElement,
   Spacer,
   Spinner,
 } from "@chakra-ui/react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Paginator, PaginatorPageChangeEvent } from "primereact/paginator";
 import {
   PageChangeEvent,
@@ -149,6 +146,15 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
                           {row[column.key]}
                         </Text>
                       ) : column.type === "avatar" ? (
+                        <div className="flex flex-row gap-4 items-center">
+                          <div className="h-10 w-10">
+                            <ProfilePicComponent
+                              subject={row[column.key]}
+                              not_shadow={true}
+                            />
+                          </div>
+                        </div>
+                      ): column.type === "avatar-name" ? (
                         <div className="flex flex-row gap-4 items-center">
                           <div className="h-10 w-10">
                             <ProfilePicComponent

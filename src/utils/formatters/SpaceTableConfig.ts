@@ -4,7 +4,7 @@ import {
   faGraduationCap,
   faSchool,
 } from "@fortawesome/free-solid-svg-icons";
-import { Column, Filter, TextButton } from "../interfaces/ReusableTable";
+import { Column, TextButton } from "../interfaces/ReusableTable";
 import { Option } from "../interfaces/CustomSelect";
 
 export const spaceColumns: Column[] = [

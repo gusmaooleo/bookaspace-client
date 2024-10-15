@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import './styles.css'
 import { Button } from '@chakra-ui/react';
+import './styles.css'
 
 const error = () => {
   const router = useRouter();

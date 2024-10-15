@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Menu,
   MenuButton,
@@ -10,13 +10,24 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CustomSelectProps } from "@/utils/interfaces/CustomSelect";
+import { CustomSelectProps, Option } from "@/utils/interfaces/CustomSelect";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
-function CustomSelect({ options, setValue }: CustomSelectProps) {
+function CustomSelect({ options, setValue, value }: CustomSelectProps) {
   const [selectedStatus, setSelectedStatus] = useState(options[0].label);
   const [boxColor, setBoxColor] = useState<string>();
   const [icon, setIcon] = useState<IconProp | undefined>(options[0].icon);
+
+  useEffect(() => {
+    if (value) {
+      const selectedOption = options.find(option => option.value === value);
+      if (selectedOption) {
+        setSelectedStatus(selectedOption.label);
+        setBoxColor(selectedOption.color);
+        setIcon(selectedOption.icon);
+      }
+    }
+  }, [value, options]);
 
   return (
     <Menu>

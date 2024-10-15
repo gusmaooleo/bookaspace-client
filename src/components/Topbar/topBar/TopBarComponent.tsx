@@ -1,13 +1,13 @@
 import ProfilePicComponent from "@/components/Icons/profilePic/ProfilePicComponent";
 import LogoComponent from "@/components/Icons/logo/LogoComponent";
-import { Routes } from "@/utils/routes";
+import { FormatRole } from "@/utils/formatters/GeneralStateFormatter";
+import { canAccess, Routes } from "@/utils/routes";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { User } from "@/utils/interfaces/User";
 import Link from "next/link";
 import React from "react";
 import "./index.css";
-import { User } from "@/utils/interfaces/User";
-import { FormatRole } from "@/utils/formatters/GeneralStateFormatter";
 
 const TopBarComponent = () => {
   const [routes] = useState<[string, string][]>(
@@ -30,14 +30,16 @@ const TopBarComponent = () => {
         <LogoComponent />
         <div className="flex items-center gap-6">
           {routes.map(([key, value]) => (
-            <div className="flex flex-col items-center" key={key}>
-              <Link href={value} className="anchor-box text-box">
-                <p>{key}</p>
-              </Link>
-              {router.pathname.includes(value) && (
-                <span className="custom-route-indicator"></span>
-              )}
-            </div>
+            canAccess(value as Routes, user?.roles[0].id) && (
+              <div className="flex flex-col items-center" key={key}>
+                <Link href={value} className="anchor-box text-box">
+                  <p>{key}</p>
+                </Link>
+                {router.pathname.includes(value) && (
+                  <span className="custom-route-indicator"></span>
+                )}
+              </div>
+            )
           ))}
         </div>
       </div>

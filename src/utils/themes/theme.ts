@@ -76,6 +76,15 @@ const Button: ComponentStyleConfig = {
       _hover: {
         backgroundColor: '#D1D1D1 !important',
       }
+    },
+    reprove: {
+      backgroundColor: '#F97E7A !important',
+      border: 'none !important',
+      cursor: 'default',
+      color: "#F4F7F5 !important",
+      _hover: {
+        backgroundColor: '#d3443f !important',
+      }
     }
   }
 }

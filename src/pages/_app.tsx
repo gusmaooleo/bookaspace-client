@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 import { PrimeReactProvider } from "primereact/api";
 import { addLocale, locale } from "primereact/api";
 import { useEffect } from "react";
+import { UserProvider } from "@/contexts/userContext";
 import TopBarComponent from "@/components/Topbar/topBar/TopBarComponent";
 import theme from "@/utils/themes/theme";
 import ptbr from "./../../public/pt-br.json";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import "../app/globals.css";
-import { UserProvider } from "@/contexts/userContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();

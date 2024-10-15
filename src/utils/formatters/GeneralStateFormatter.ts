@@ -24,7 +24,7 @@ export const FormatType = (value: string): [string, IconProp] => {
       return ["Sala de aula", faGraduationCap];
     case "AUDITORIUM":
       return ["Auditório", faBuildingUser];
-    case "Laboratório":
+    case "LABORATORY":
       return ["Laboratório", faFlaskVial];
     default:
       return ['Tipo não encontrado', faGraduationCap];

@@ -42,6 +42,32 @@ class RequestService {
     }
   }
   
+  async putRequest(spaceRequest: SpaceRequest): Promise<SpaceRequest> {
+    try {
+      const payload = await axios.put(`${environments.url}/requests/${spaceRequest.id}`, spaceRequest, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("user_token")}`
+        }
+      })
+      return payload.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
+  async getRequestById(id: string): Promise<SpaceRequest> {
+    try {
+      const payload = await axios.get(`${environments.url}/requests/${id}`, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("user_token")}`
+        }
+      })
+      return payload.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+  
   async filterRequestByStatus(status: string): Promise<SpaceRequest[]> {
     try {
       const payload = await axios.get<{ content: SpaceRequest[] }>(`${environments.url}/requests/status/${status}`, {

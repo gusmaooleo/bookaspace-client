@@ -3,52 +3,17 @@ import React, { useState, useEffect } from "react";
 import {
   faUser,
   faSearch,
-  faFilter,
 } from "@fortawesome/free-solid-svg-icons";
 import { PageChangeEvent } from "@/utils/interfaces/ReusableTable";
 import { SpaceRequest } from "@/utils/interfaces/SpaceRequest";
 import { formatDate } from '../../utils/formatters/DateTimeFormatter';
 import { useRequest } from "@/hooks/useRequest";
-import CustomSelect from "@/components/Shared/genericTable/CustomSelect";
-import { Button } from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { orderByOption, requestsColumns, statusOption } from "@/utils/formatters/RequestTableConfig";
-import "./styles.css";
+import { requestsColumns } from "@/utils/formatters/RequestTableConfig";
 import { RequestFilterModel } from "@/utils/interfaces/RequestFilterModel";
-import RequestService from "@/services/requests/RequestService";
 import { useUsers } from "@/hooks/useUser";
-
-
-interface RequestFilterInterface {
-  orderByValue: React.Dispatch<React.SetStateAction<string>>;
-  statusValue: React.Dispatch<React.SetStateAction<string>>;
-  triggerFilter: () => void;
-}
-
-const RequestFilter = ({
-  orderByValue,
-  statusValue,
-  triggerFilter,
-}: RequestFilterInterface) => {
-  return (
-    <div className="flex flex-row gap-3" style={{ width: 'auto'}}>
-      <div style={{width: 'auto'}}>
-        <CustomSelect options={orderByOption} setValue={orderByValue} />
-      </div>
-      <CustomSelect options={statusOption} setValue={statusValue} />
-
-      <Button
-        backgroundColor={"#f4f7f5"}
-        onClick={triggerFilter}
-      >
-        <FontAwesomeIcon
-          color={"#1E1E1E"}
-          icon={faFilter}
-        />
-      </Button>
-    </div>
-  );
-};
+import RequestService from "@/services/requests/RequestService";
+import RequestFilter from "@/components/Filter/requestFilter/RequestFilter";
+import "./styles.css";
 
 const Solicitacoes = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -112,7 +77,7 @@ const Solicitacoes = () => {
 
   return (
     <div className="page p-20">
-      <h2 className="mb-6">Histórico de solicitações</h2>
+      <h2 className="mb-6 page-title-margin">Histórico de solicitações</h2>
       <ReusableTable
         columns={requestsColumns}
         data={data}

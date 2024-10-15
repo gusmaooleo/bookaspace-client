@@ -4,6 +4,33 @@
   height: 100%;
 }
 
+.w-fullsized {
+  width: 100%;
+  height: calc(var(--route-page-box-height) - 14vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between !important;
+
+  .p-calendar {
+    width: 100% !important;
+    z-index: 1000;
+    .p-inputtext {
+      box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.5);
+      color: var(--foreground) !important;
+      font-weight: 600;
+      background-color: var(--background);
+      height: var(--default-input-height);
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+  }
+  
+  .p-datepicker-trigger {
+    background-color: var(--primary);
+    height: var(--default-input-height);
+  }
+}
+
 .space-register-form-container {
   height: calc(var(--route-page-box-height) - 6.8vh);
   background-color: var(--foreground);
@@ -17,6 +44,7 @@
 
   .p-calendar {
     width: 100% !important;
+    z-index: 1000;
     .p-inputtext {
       box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.5);
       color: var(--foreground) !important;

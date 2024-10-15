@@ -14,7 +14,10 @@ const Agenda = () => {
   return (
     <div className='page agenda-page gap-8'>
       <CalendarComponent />
-      <SpaceRequestFormComponent />
+      <div className='flex flex-col'>
+        <h2 className='mb-6'>Solicitar reserva</h2>
+        <SpaceRequestFormComponent />
+      </div>
     </div>
   );
 }
