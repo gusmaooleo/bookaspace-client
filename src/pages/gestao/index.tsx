@@ -265,6 +265,7 @@ const Gestao = () => {
               colorBg: "white",
               icon: faPlus,
               colorText: "black",
+              display: true,
             }}
             rowsPerPageOptions={[7]}
             onPageChange={handlePageChange}
