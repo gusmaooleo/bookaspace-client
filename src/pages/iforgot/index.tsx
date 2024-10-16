@@ -1,6 +1,6 @@
 import './styles.css'
 
-const iforgot = () => {
+const Iforgot = () => {
   return (
     <div className='flex h-screen items-center justify-center flex-col'>
       <h2 className='mb-2'>do the L</h2>
@@ -18,6 +18,6 @@ const iforgot = () => {
   );
 }
 
-export default iforgot;
+export default Iforgot;
 
 

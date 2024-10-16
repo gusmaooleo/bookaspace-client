@@ -57,7 +57,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
-const gestao = () => {
+const Gestao = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -282,4 +282,4 @@ const gestao = () => {
   );
 };
 
-export default gestao;
+export default Gestao;

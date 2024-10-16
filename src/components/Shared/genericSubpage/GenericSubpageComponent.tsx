@@ -38,7 +38,7 @@ const GenericSubpageComponent = ({
                 username={item.username}
               />
             </div>
-          ): <div className="hidden"></div>)}
+          ): <div className="hidden" key={index}></div>)}
         </div>
       </div>
       <ActionsSubpageComponent 

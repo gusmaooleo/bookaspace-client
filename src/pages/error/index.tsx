@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { Button } from '@chakra-ui/react';
 import './styles.css'
 
-const error = () => {
+const Error = () => {
   const router = useRouter();
 
   return (
@@ -17,6 +17,6 @@ const error = () => {
   );
 }
 
-export default error;
+export default Error;
 
 
