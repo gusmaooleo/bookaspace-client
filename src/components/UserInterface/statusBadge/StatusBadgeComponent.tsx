@@ -11,7 +11,7 @@ const StatusBadgeComponent = ({ status }: StatusBadgeProps) => {
     switch(value) {
       case 'APPROVED':
         return 'Aprovada';
-      case 'REPROVED':
+      case 'REJECTED':
         return 'Reprovada';
       case 'PENDING':
         return 'Aguardando aprovação';
@@ -34,7 +34,7 @@ const StatusBadgeComponent = ({ status }: StatusBadgeProps) => {
   if (typeof status === 'boolean') {
     return (
       <Badge padding={".3rem .6rem"} variant={status ? 'AVAILABLE' : "UNAVAILABLE"}>
-        {decideBadgeText(status)}
+        { decideBadgeText(status) }
       </Badge>
     );
   } else {

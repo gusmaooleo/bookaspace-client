@@ -13,19 +13,20 @@ import { useSpaceRequestForm } from "@/hooks/useSpaceRequestForm";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { useUserSession } from "@/contexts/userContext";
 import { SpaceRequest } from "@/utils/interfaces/SpaceRequest";
-import WarningTextComponent from "@/components/UserInterface/warningText/WarningTextComponent";
-import RequestService from "@/services/requests/RequestService";
 import { useRequest } from "@/hooks/useRequest";
 import { FC, useEffect } from "react";
 import { Space } from "@/utils/interfaces/Space";
+import WarningTextComponent from "@/components/UserInterface/warningText/WarningTextComponent";
+import RequestService from "@/services/requests/RequestService";
 import "./index.css";
 
 interface SpaceRequestFormProps {
   request?: SpaceRequest | null,
+  closeAction?: () => void,
   id?: number,
 }
 
-const SpaceRequestFormComponent: FC<SpaceRequestFormProps> = ({ request, id }) => {
+const SpaceRequestFormComponent: FC<SpaceRequestFormProps> = ({ request, id, closeAction }) => {
   const {
     space,
     setSpace,
@@ -85,6 +86,7 @@ const SpaceRequestFormComponent: FC<SpaceRequestFormProps> = ({ request, id }) =
             position: 'top-right'
           })
           setRequests();
+          clearForm();
         } else {
           toast({
             title: 'Erro',
@@ -196,7 +198,7 @@ const SpaceRequestFormComponent: FC<SpaceRequestFormProps> = ({ request, id }) =
         </div>
 
         <div className="flex w-full justify-end gap-3">
-          <Button variant="outline" onClick={clearForm}>Cancelar</Button>
+          <Button variant="outline" onClick={request ? closeAction : clearForm}>Cancelar</Button>
           <Button 
             variant={canSubmit} 
             type={canSubmit === 'submit' ? 'submit' : 'button'}

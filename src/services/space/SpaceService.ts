@@ -17,7 +17,7 @@ class SpaceService {
     typeObject: [],
   };
 
-  async createNewSpace(space: Space): Promise<Space> {
+  async createNewSpace(space: Space): Promise<Space | any> {
     try {
       const payload = await axios.post(
         `${environments.url}/physicalspaces`,
@@ -31,11 +31,11 @@ class SpaceService {
       console.log(payload.data);
       return payload.data;
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
 
-  async getSpaces(): Promise<Space[]> {
+  async getSpaces(): Promise<Space[] | any> {
     try {
       const payload = await axios.get(`${environments.url}/physicalspaces`, {
         headers: {
@@ -44,11 +44,11 @@ class SpaceService {
       });
       return payload.data.content;
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
 
-  async getSpaceById(id: string): Promise<Space> {
+  async getSpaceById(id: string): Promise<Space | any> {
     try {
       const payload = await axios.get(
         `${environments.url}/physicalspaces/${id}`,
@@ -60,11 +60,11 @@ class SpaceService {
       );
       return payload.data;
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
 
-  async filterSpaceByCapacity(capacity: string): Promise<Space[]> {
+  async filterSpaceByCapacity(capacity: string): Promise<Space[] | any> {
     try {
       const payload = await axios.get<{ content?: Space[] }>(
         `${environments.url}/physicalspaces/capacity/${capacity}`,
@@ -76,11 +76,11 @@ class SpaceService {
       );
       return payload.data.content || [];
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
 
-  async filterSpaceByName(name: string): Promise<Space[]> {
+  async filterSpaceByName(name: string): Promise<Space[] | any> {
     try {
       const payload = await axios.get<{ content?: Space[] }>(
         `${environments.url}/physicalspaces/name/${name}`,
@@ -92,11 +92,11 @@ class SpaceService {
       );
       return payload.data.content || [];
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
 
-  async filterSpaceByType(name: string): Promise<Space[]> {
+  async filterSpaceByType(name: string): Promise<Space[] | any> {
     try {
       const payload = await axios.get<{ content?: Space[] }>(
         `${environments.url}/physicalspaces/type/${name}`,
@@ -108,7 +108,7 @@ class SpaceService {
       );
       return payload.data.content || [];
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
 

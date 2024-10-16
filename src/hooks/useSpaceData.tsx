@@ -16,7 +16,7 @@ const spaceStore = create<SpaceState>((set) => ({
       const response = await spaceService.getSpaces();
       set({ spaces: response })
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
 }))

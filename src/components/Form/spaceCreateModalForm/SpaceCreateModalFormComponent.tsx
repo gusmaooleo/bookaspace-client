@@ -63,7 +63,7 @@ const SpaceCreateModalFormComponent: FC<SpaceCreateModalProps> = ({ onClose }) =
     }
 
     const space = await spaceService.createNewSpace(spaceData);
-
+    
     if (space.id) {
       toast({
         title: "Sucesso",

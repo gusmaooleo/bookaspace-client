@@ -1,9 +1,5 @@
 import ReusableTable from "@/components/Shared/genericTable/ReusableTable";
 import React, { useState, useEffect } from "react";
-import {
-  faUser,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
 import { PageChangeEvent } from "@/utils/interfaces/ReusableTable";
 import { SpaceRequest } from "@/utils/interfaces/SpaceRequest";
 import { formatDate } from '../../utils/formatters/DateTimeFormatter';
@@ -40,12 +36,10 @@ const Solicitacoes = () => {
       obj['username'] = userRequest?.usernameUser;
     });
 
-    console.log(dummy);
-
     setData(dummy);
   }
 
-
+  // TODO: memoização da lista de spaceRequest (data)
   useEffect(() => {
     formatBeforeDisplay(getRequests);
   }, [getRequests, getUsers]);
@@ -63,12 +57,6 @@ const Solicitacoes = () => {
       formatBeforeDisplay(data);
     }
   }
-
-
-  const textButtons = [
-    { placeholder: "Título de solicitação", icon: faSearch },
-    { placeholder: "Solicitante", icon: faUser },
-  ];
   
   function handlePageChange(event: PageChangeEvent) {
     setCurrentPage(event.page);
@@ -81,7 +69,6 @@ const Solicitacoes = () => {
       <ReusableTable
         columns={requestsColumns}
         data={data}
-        textButtons={textButtons}
         totalRecords={totalRecords}
         initialPage={currentPage}
         onPageChange={handlePageChange}

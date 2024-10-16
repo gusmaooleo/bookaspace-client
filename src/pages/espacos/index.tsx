@@ -1,65 +1,19 @@
 import React, { useState, useEffect } from "react";
 import {
   faAdd,
-  faFilter,
 } from "@fortawesome/free-solid-svg-icons";
+import { SpaceFilterModel } from "@/utils/interfaces/SpaceFilterModel";
 import { PageChangeEvent } from "@/utils/interfaces/ReusableTable";
+import { spaceColumns } from "@/utils/formatters/SpaceTableConfig";
+import { useSpace } from "@/hooks/useSpace";
 import { Space } from "@/utils/interfaces/Space";
+import SpaceCreateModalFormComponent from "@/components/Form/spaceCreateModalForm/SpaceCreateModalFormComponent";
+import SpaceFilterComponent from "@/components/Filter/spaceFilter/SpaceFilterComponent";
 import ReusableTable from "@/components/Shared/genericTable/ReusableTable";
 import DynamicModal from "@/components/Shared/genericModal/DynamicModal";
-import SpaceCreateModalFormComponent from "@/components/Form/spaceCreateModalForm/SpaceCreateModalFormComponent";
-import {
-  spaceColumns,
-  textButtons,
-  typeOption,
-} from "@/utils/formatters/SpaceTableConfig";
-import { useSpace } from "@/hooks/useSpace";
-import { Button, Input } from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CustomSelect from "@/components/Shared/genericTable/CustomSelect";
-import { InputNumber } from "primereact/inputnumber";
-import { SpaceFilterModel } from "@/utils/interfaces/SpaceFilterModel";
 import SpaceService from "@/services/space/SpaceService";
 import "./styles.css";
-
-interface SpaceFilterInterface {
-  typeValue: React.Dispatch<React.SetStateAction<string>>;
-  spaceNameValue: React.Dispatch<React.SetStateAction<string>>;
-  spaceCapacityValue: React.Dispatch<React.SetStateAction<string>>;
-  triggerFilter: () => void;
-}
-
-const SpaceFilter = ({
-  typeValue,
-  spaceCapacityValue,
-  spaceNameValue,
-  triggerFilter,
-}: SpaceFilterInterface) => {
-  return (
-    <div className="flex flex-row gap-3">
-      <CustomSelect options={typeOption} setValue={typeValue} />
-      <Input
-        variant={"ns_light"}
-        placeholder="Nome do espaço"
-        onChange={(e) => spaceNameValue(e.target.value)}
-      />
-      <InputNumber
-        placeholder="Capacidade"
-        onChange={(e) => spaceCapacityValue(String(e.value))}
-      />
-
-      <Button
-        backgroundColor={"#f4f7f5"}
-        onClick={triggerFilter}
-      >
-        <FontAwesomeIcon
-          color={"#1E1E1E"}
-          icon={faFilter}
-        />
-      </Button>
-    </div>
-  );
-};
+import { useUserSession } from "@/contexts/userContext";
 
 const Espacos: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -72,6 +26,7 @@ const Espacos: React.FC = () => {
   const [tipo, setTipo] = useState<string>("");
   const [spaceName, setSpaceName] = useState<string>("");
   const [spaceCapacity, setSpaceCapacity] = useState<string>("");
+  const { user } = useUserSession();
 
   const spaceService = new SpaceService();
 
@@ -90,7 +45,6 @@ const Espacos: React.FC = () => {
       setData(data);
     }
   };
-
 
   useEffect(() => {
     setData(getSpaces);
@@ -112,14 +66,15 @@ const Espacos: React.FC = () => {
       <ReusableTable
         columns={spaceColumns}
         data={data}
-        textButtons={textButtons}
-
-        onRegister={{
-          label: "Registrar novo espaço",
-          onClick: openModal,
-          icon: faAdd,
-        }}
-
+        onRegister={
+          user?.roles[0].id === 1 ? 
+          {
+            label: "Registrar novo espaço",
+            onClick: openModal,
+            icon: faAdd,
+            display: true
+          } : { display: false }
+        }
         totalRecords={totalRecords}
         initialPage={currentPage}
         onPageChange={handlePageChange}
@@ -127,7 +82,7 @@ const Espacos: React.FC = () => {
 
 
         filtersComponent={
-          <SpaceFilter
+          <SpaceFilterComponent
             typeValue={setTipo}
             spaceCapacityValue={setSpaceCapacity}
             spaceNameValue={setSpaceName}

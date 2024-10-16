@@ -29,7 +29,6 @@ import { FormatType } from "@/utils/formatters/GeneralStateFormatter";
 const ReusableTable: React.FC<ReusableTableProps> = ({
   columns,
   data,
-  textButtons,
   redirectRow,
   onRegister,
   totalRecords,
@@ -98,7 +97,7 @@ const ReusableTable: React.FC<ReusableTableProps> = ({
           {filtersComponent}
 
           <Spacer />
-          {onRegister && (
+          {onRegister && onRegister.display && (
             <Button
               colorScheme={onRegister.colorBg || "green"}
               leftIcon={<FontAwesomeIcon icon={onRegister.icon || faSearch} />}

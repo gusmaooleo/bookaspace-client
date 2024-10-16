@@ -43,11 +43,9 @@ class UserService {
       const userData = await this.getMe(token);
       const expiration = payload.data['expires_in'] / (24 * 60 * 60);
       this.loadDataSession(token, userData, expiration, isTemp);
-
-
       return userData;
     } catch (error) {
-      throw error;
+      console.error(error)
     }
   }
 
@@ -56,7 +54,7 @@ class UserService {
    * @param token 
    * @returns 
    */
-  async getMe(token: string): Promise<User> {
+  async getMe(token: string): Promise<User | any> {
     try {
       const payload = await axios.get(`${environments.url}/users/me`, {
         headers: {
@@ -65,11 +63,11 @@ class UserService {
       })
       return payload.data;
     } catch (error) {
-      throw error;
+      console.error(error)
     }
   }
   
-  async getAll(): Promise<User[]> {
+  async getAll(): Promise<User[] | any> {
     try {
       const payload = await axios.get<{ content: User[] }>(`${environments.url}/users`, {
         headers: {
@@ -78,11 +76,11 @@ class UserService {
       })
       return payload.data.content;
     } catch (error) {
-      throw error;
+      console.error(error)
     }
   }
   
-  async getById(id: number): Promise<User> {
+  async getById(id: number): Promise<User | any> {
     try {
       const payload = await axios.get(`${environments.url}/users/${id}`, {
         headers: {
@@ -91,7 +89,7 @@ class UserService {
       })
       return payload.data;
     } catch (error) {
-      throw error;
+      console.error(error)
     }
   }
 
@@ -104,7 +102,7 @@ class UserService {
     localStorage.setItem('user_data', JSON.stringify(userData));
   }
 
-  async createUser(userData: CreateUserData): Promise<User> {
+  async createUser(userData: CreateUserData): Promise<User | any> {
     try {
       const response = await axios.post(`${environments.url}/users`, userData, {
         headers: {
@@ -115,11 +113,11 @@ class UserService {
       return response.data;
     } catch (error) {
       console.error("Error creating user:", error);
-      throw error;
+      console.error(error)
     }
   }
 
-  async updateUser(userId: number, userData: UpdateUserData): Promise<User> {
+  async updateUser(userId: number, userData: UpdateUserData): Promise<User | any> {
     try {
       const token = this.getToken();
       const response = await axios.put(`${environments.url}/users/${userId}`, userData, {
@@ -132,7 +130,7 @@ class UserService {
       return response.data;
     } catch (error) {
       console.error("Error updating user:", error);
-      throw error;
+      console.error(error)
     }
   }
 
@@ -146,7 +144,7 @@ class UserService {
       });
     } catch (error) {
       console.error("Error deleting user:", error);
-      throw error;
+      console.error(error)
     }
   }
 

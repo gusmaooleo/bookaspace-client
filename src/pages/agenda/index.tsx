@@ -1,8 +1,8 @@
 import SpaceRequestFormComponent from '@/components/Form/spaceRequestForm/SpaceRequestFormComponent';
 import CalendarComponent from '@/components/Calendar/calendar/CalendarComponent';
-import './styles.css'
 import { useEffect } from 'react';
 import { useUsers } from '@/hooks/useUser';
+import './styles.css'
 
 const Agenda = () => {
   const { setUsers } = useUsers();

@@ -63,11 +63,26 @@ const Button: ComponentStyleConfig = {
         backgroundColor: '#29AA51 !important',
       }
     },
+    edit: {
+      backgroundColor: 'transparent !important',
+      border: '1px solid #68d68a !important',
+      _hover: {
+        backgroundColor: '#e2f5e8 !important',
+      }
+    },
     blocked: {
       backgroundColor: '#868686 !important',
       border: 'none !important',
       color: "#F4F7F5 !important",
       cursor: 'default'
+    },
+    dark: {
+      backgroundColor: '#1e1e1e !important',
+      border: 'none !important',
+      color: "#F4F7F5 !important",
+      _hover: {
+        backgroundColor: '#3B3939 !important'
+      }
     },
     white: {
       backgroundColor: '#fff !important',
@@ -94,7 +109,7 @@ const Badge: ComponentStyleConfig = {
     "APPROVED": {
       backgroundColor: '#68D68A',
     },
-    "REPROVED": {
+    "REJECTED": {
       backgroundColor: '#F97E7A',
     },
     "PENDING": {

@@ -14,12 +14,3 @@ export const usuariosColumns: Column[] = [
   { header: 'Cargo', key: 'roleName' },
   { header: 'Ações', key: 'acoes' },
 ];
-
-export const textButtonsEvents = [
-  { placeholder: 'Usuário', icon: faUser },
-  { placeholder: 'Tipo de evento', icon: faCalendar },
-];
-
-export const textButtonsUser = [
-  { placeholder: 'Usuário', icon: faUser, variant: 'dark' },
-];

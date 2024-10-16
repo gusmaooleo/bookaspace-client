@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -10,8 +10,6 @@ import { useUsers } from "@/hooks/useUser";
 import { GetServerSideProps } from "next";
 import {
   eventosColumns,
-  textButtonsEvents,
-  textButtonsUser,
   usuariosColumns,
 } from "@/utils/formatters/ManagerTablesConfig";
 import ReusableTable from "@/components/Shared/genericTable/ReusableTable";
@@ -25,11 +23,16 @@ import "./styles.css";
 
 type ModalType = "create" | "edit" | "delete" | null;
 
+/**
+ * @todo Melhorar estrutura e performance do componente "gestao". Esse componente deve apenas renderizar elementos, e não validar, formatar e filtrar.
+ * @param context 
+ * @returns 
+ */
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { req } = context;
-    const cookies: string = req.cookies['user_token'] || ''
+    const cookies: string = req.cookies["user_token"] || "";
     const userService = new UserService();
 
     const response = await userService.getMe(cookies);
@@ -39,21 +42,20 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     } else {
       return {
         redirect: {
-          destination: '/error',
+          destination: "/error",
           permanent: false,
-        }
-      }
+        },
+      };
     }
   } catch (error) {
     return {
       redirect: {
-        destination: '/error',
+        destination: "/error",
         permanent: false,
-      }
-    }
+      },
+    };
   }
-}
-
+};
 
 const gestao = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -71,13 +73,15 @@ const gestao = () => {
 
   const handleFilterUser = () => {
     if (userFilter !== "") {
-      let dummy: User[] = getUsers.map((obj) => ({ ...obj }));
-
-      setUsuariosData(
-        dummy.filter((item) =>
+      let dummy: User[] = getUsers
+        .map((obj) => ({
+          ...obj,
+          roleName: FormatRole(obj.roles[0].id),
+        }))
+        .filter((item) =>
           item.usernameUser.toLowerCase().includes(userFilter.toLowerCase())
-        )
-      );
+        );
+      setUsuariosData(dummy);
     } else {
       loadUsers();
     }
@@ -86,10 +90,12 @@ const gestao = () => {
   const handleEtFilterUser = () => {
     if (userEtFilter !== "") {
       let dummy: Audit[] = auditsData.map((obj) => ({ ...obj }));
-      console.log(dummy)
-      setAuditsData(dummy.filter(item => item.username.toLowerCase().includes(userEtFilter.toLowerCase())
-      ))
-      
+      console.log(dummy);
+      setAuditsData(
+        dummy.filter((item) =>
+          item.username.toLowerCase().includes(userEtFilter.toLowerCase())
+        )
+      );
     } else {
       setAuditsData(auditsDataConstant);
     }
@@ -99,7 +105,6 @@ const gestao = () => {
     const fetchAudits = async () => {
       try {
         const audits = await GestaoService.getAudits();
-        // jogar para o lado do servidor depois
         const reversedAudit = [...audits].reverse();
         setAuditsData([...reversedAudit]);
         setAuditsDataConstant([...reversedAudit]);
@@ -205,14 +210,17 @@ const gestao = () => {
           <ReusableTable
             columns={eventosColumns}
             data={auditsData}
-            textButtons={textButtonsEvents}
             totalRecords={auditsData.length}
             initialPage={currentPage}
             rowsPerPageOptions={[10]}
             onPageChange={handlePageChange}
             isLoading={isLoading}
             filtersComponent={
-              <UserFilterComponent theme="light" nameValue={setUserEtFilter} triggerFilter={handleEtFilterUser} />
+              <UserFilterComponent
+                theme="light"
+                nameValue={setUserEtFilter}
+                triggerFilter={handleEtFilterUser}
+              />
             }
           />
         </Box>
@@ -249,7 +257,6 @@ const gestao = () => {
               />
             }
             colorHeader="white"
-            textButtons={textButtonsUser}
             totalRecords={usuariosData.length}
             initialPage={currentPage}
             onRegister={{

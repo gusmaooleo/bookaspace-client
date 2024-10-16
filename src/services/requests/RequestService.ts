@@ -3,6 +3,7 @@ import environments from '@/config/environments';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { RequestFilterModel } from '@/utils/interfaces/RequestFilterModel';
+import { UpdateRequest } from '@/utils/interfaces/UpdateRequest';
 
 interface FilterObjects {
   orderByObject: SpaceRequest[];
@@ -15,7 +16,7 @@ class RequestService {
     statusObject: [],
   };
 
-  async getAllRequests(): Promise<SpaceRequest[]> {
+  async getAllRequests(): Promise<SpaceRequest[] | any> {
     try {
       const payload = await axios.get<{ content: SpaceRequest[] }>(`${environments.url}/requests`, {
         headers: {
@@ -25,11 +26,11 @@ class RequestService {
 
       return payload.data.content;
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
 
-  async sendRequest(spaceRequest: SpaceRequest): Promise<SpaceRequest> {
+  async sendRequest(spaceRequest: SpaceRequest): Promise<SpaceRequest | any> {
     try {
       const payload = await axios.post(`${environments.url}/requests`, spaceRequest, {
         headers: {
@@ -38,11 +39,11 @@ class RequestService {
       })
       return payload.data;
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
   
-  async putRequest(spaceRequest: SpaceRequest): Promise<SpaceRequest> {
+  async putRequest(spaceRequest: SpaceRequest): Promise<SpaceRequest | any> {
     try {
       const payload = await axios.put(`${environments.url}/requests/${spaceRequest.id}`, spaceRequest, {
         headers: {
@@ -51,11 +52,25 @@ class RequestService {
       })
       return payload.data;
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
   
-  async getRequestById(id: string): Promise<SpaceRequest> {
+  async updateRequestStatus(updateRequest: UpdateRequest): Promise<UpdateRequest | any> {
+    try {
+      console.log(updateRequest);
+      const payload = await axios.post(`${environments.url}/approvalhistories`, updateRequest, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("user_token")}`
+        }
+      })
+      return payload.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  async getRequestById(id: string): Promise<SpaceRequest | any> {
     try {
       const payload = await axios.get(`${environments.url}/requests/${id}`, {
         headers: {
@@ -64,11 +79,11 @@ class RequestService {
       })
       return payload.data;
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
   
-  async filterRequestByStatus(status: string): Promise<SpaceRequest[]> {
+  async filterRequestByStatus(status: string): Promise<SpaceRequest[] | any> {
     try {
       const payload = await axios.get<{ content: SpaceRequest[] }>(`${environments.url}/requests/status/${status}`, {
         headers: {
@@ -77,7 +92,7 @@ class RequestService {
       })
       return payload.data.content;
     } catch (error) {
-      throw error;
+      console.error(error);
     }
   }
 
@@ -98,7 +113,7 @@ class RequestService {
     const statusIds = new Set(statusObject.map((request) => request.id));
 
     const commonSpaces = allRequestsCompare.filter(
-      (request) => statusIds.has(request.id)
+      (request: { id: number | undefined; }) => statusIds.has(request.id)
     );
 
     return requestFilter.orderBy === 'asc' ? commonSpaces : commonSpaces.reverse();
