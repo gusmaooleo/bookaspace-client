@@ -8,6 +8,7 @@ export interface SpaceRequest {
   title: string,
   dateTimeStart: string,
   approvalHistory?: any,
+  userAction?: User,
   dateTimeEnd: string,
   dateCreationRequest?: string,
   needs: string,

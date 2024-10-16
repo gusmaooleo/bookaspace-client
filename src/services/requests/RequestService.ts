@@ -58,7 +58,6 @@ class RequestService {
   
   async updateRequestStatus(updateRequest: UpdateRequest): Promise<UpdateRequest | any> {
     try {
-      console.log(updateRequest);
       const payload = await axios.post(`${environments.url}/approvalhistories`, updateRequest, {
         headers: {
           Authorization: `Bearer ${Cookies.get("user_token")}`

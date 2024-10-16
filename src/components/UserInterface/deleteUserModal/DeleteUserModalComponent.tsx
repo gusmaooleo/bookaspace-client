@@ -48,7 +48,7 @@ const DeleteUserModalComponent: FC<DeleteUserFormComponentProps> = ({ onClose, i
           {"Esta ação não pode ser desfeita."}
         </Text>
       </Flex>
-      <div className="flex w-full justify-end mt-12">
+      <div className="flex w-full justify-end mt-8">
         <Button variant={"outline"} mr={3} onClick={onClose}>
           Cancelar
         </Button>

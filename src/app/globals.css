@@ -72,7 +72,7 @@ h3 {
 }
 
 .p-datepicker {
-  z-index: 10000;
+  z-index: 10000 !important;
 }
 
 .p-datepicker-title {

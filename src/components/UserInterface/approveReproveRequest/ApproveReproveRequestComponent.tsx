@@ -5,8 +5,7 @@ import { UpdateRequest } from "@/utils/interfaces/UpdateRequest";
 import { User } from "@/utils/interfaces/User";
 import { addMinutes } from "date-fns";
 import RequestService from "@/services/requests/RequestService";
-import './index.css'
-
+import "./index.css";
 
 interface ApproveReproveRequestProps {
   request?: SpaceRequest | null;
@@ -21,16 +20,17 @@ const ApproveReproveRequest = ({
   type,
   closeAction,
 }: ApproveReproveRequestProps) => {
-  const requestService = new RequestService();
   const { setRequests } = useRequest();
   const toast = useToast();
+  const requestService = new RequestService();
+  const isApprove = type === "approve";
 
   const approveRequest = async () => {
     if (request) {
       try {
         const updateRequest: UpdateRequest = {
           dateTime: addMinutes(new Date(), 5).toISOString(),
-          decision: type === "approve",
+          decision: isApprove,
           observation: "APPROVED",
           requestId: Number(request.id),
           userId: user?.id,
@@ -42,7 +42,7 @@ const ApproveReproveRequest = ({
           toast({
             title: "Sucesso",
             description: `Solicitação ${
-              type === "approve" ? "aprovada" : "reprovada"
+              isApprove ? "aprovada" : "reprovada"
             } com sucesso.`,
             status: "success",
             position: "top-right",
@@ -51,7 +51,9 @@ const ApproveReproveRequest = ({
       } catch (error) {
         toast({
           title: "Erro",
-          description: `Falha ao ${type === 'approve' ? "aprovar" : "reprovar"} solicitação.`,
+          description: `Falha ao ${
+            isApprove ? "aprovar" : "reprovar"
+          } solicitação.`,
           status: "error",
           position: "top-right",
         });
@@ -62,20 +64,30 @@ const ApproveReproveRequest = ({
   return (
     <div className="flex flex-col gap-4 p-6">
       <Text fontSize="16px" fontWeight="bold" color="white" mb={2}>
-        Pressione "confirmar" para {type === "approve" ? "aprovar" : "reprovar"}{" "}
-        a solicitação
+        Têm certeza que deseja{" "}
+        <span  style={{ color: isApprove ? "#68d68a" : "#F97E7A" }}>
+          {isApprove ? "aprovar" : "reprovar"}
+        </span>{" "}
+        a solicitação?
       </Text>
 
-      <div className="flex w-full justify-end mt-12">
+      <Text fontSize="14px" color="red.500" fontWeight={"600"}>
+        {"Esta ação não poderá ser desfeita."}
+      </Text>
+
+      <div className="flex w-full justify-end mt-8">
         <Button variant={"outline"} mr={3} onClick={closeAction}>
           Cancelar
         </Button>
-        <Button variant={"submit"} type="submit" onClick={approveRequest}>
-          Confirmar
+        <Button
+          variant={isApprove ? "submit" : "reprove"}
+          type="submit"
+          onClick={approveRequest}
+        >
+          {isApprove ? "Aprovar" : "Reprovar"}
         </Button>
       </div>
     </div>
   );
 };
 export default ApproveReproveRequest;
-

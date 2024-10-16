@@ -28,7 +28,23 @@ export const RequestItemFormatter = (values: SpaceRequest, space: Space): Generi
       "title": "Horário da reserva",
       "description": `${formatDate(values.dateTimeStart)} até ${formatDate(values.dateTimeEnd)}`,
     },
+    {
+      "title": "Solicitante",
+      "description": `${values.user?.login} - ${values.user?.usernameUser}`,
+      "username": values.user?.usernameUser,
+      "type": 'user'
+    },
+
   ]
 
+  if (values.approvalHistory) {
+    formattedItem.push({
+      "title": `${ values.approvalHistory['decision'] ? 'Aprovador' : 'Reprovador' }`,
+      "description": `${values.userAction?.login} - ${values.userAction?.usernameUser}`,
+      "username": values.userAction?.usernameUser,
+      "type": 'user'
+    })  
+  }
+  
   return formattedItem;
 } 

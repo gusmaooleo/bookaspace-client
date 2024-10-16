@@ -21,9 +21,9 @@ export async function middleware(req: NextRequest) {
   // Verifica se o cookie 'user_token' existe
   const token = req.cookies.get('user_token');
 
-  // Se o token não existir, redireciona para a página de erro
+  // Se o token não existir, redireciona para a página de login
   if (!token) {
-    return NextResponse.redirect(new URL('/error', req.url));
+    return NextResponse.redirect(new URL('/login', req.url));
   }
   
   try {

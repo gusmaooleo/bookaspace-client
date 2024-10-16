@@ -10,8 +10,8 @@ const Error = () => {
       <h2 className='mb-3'>Erro =(</h2>
       <p>Certifique-se de que você tem acesso a essa rota antes de prosseguir.</p>
       <div className='flex flex-row gap-2'>
-        <Button marginTop={'4rem'} variant={'dark'} onClick={() => router.push('/login')}>/Login</Button>
-        <Button marginTop={'4rem'} variant={'outline'} onClick={() => router.push('/agenda')}>Voltar</Button>
+        <Button marginTop={'4rem'} variant={'dark'} onClick={() => router.push('/login')}>Login</Button>
+        <Button marginTop={'4rem'} variant={'outline'} onClick={() => router.back()}>Voltar</Button>
       </div>
     </div>
   );

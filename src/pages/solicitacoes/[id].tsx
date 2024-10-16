@@ -17,6 +17,7 @@ import SpaceRequestFormComponent from "@/components/Form/spaceRequestForm/SpaceR
 import ApproveReproveRequest from "@/components/UserInterface/approveReproveRequest/ApproveReproveRequestComponent";
 import RequestService from "@/services/requests/RequestService";
 import { useToast } from "@chakra-ui/react";
+import { useUsers } from "@/hooks/useUser";
 
 const Solicitacao = () => {
   const router = useRouter();
@@ -24,6 +25,7 @@ const Solicitacao = () => {
   const { user } = useUserSession();
   const [solicitacao, setSolicitacao] = useState<SpaceRequest | null>(null);
   const [payload, setPayload] = useState<GenericSubpage[] | null>(null);
+  const { getUsers } = useUsers();
   const toast = useToast()
 
   const [toggleEditModal, setToggleEditModal] = useState<boolean>(false);
@@ -84,6 +86,12 @@ const Solicitacao = () => {
         const space = await spaceService.getSpaceById(
           String(solicitacao.physicalSpaceId)
         );
+        const user = getUsers.find(user => user.id === solicitacao.userId)
+        solicitacao.user = user;
+        if (solicitacao.approvalHistory) {
+          const userAction = getUsers.find(user => user.id === solicitacao.approvalHistory.userId)
+          solicitacao.userAction = userAction;
+        }
         setPayload(RequestItemFormatter(solicitacao, space));
       }
     };
@@ -164,7 +172,7 @@ const Solicitacao = () => {
       <DynamicModal
         isOpen={approveReproveModal}
         onClose={() => setApproveReproveModal(false)}
-        title="Aprovar solicitação"
+        title={`${ typeApprove === 'approve' ? "Aprovar" : "Reprovar" } solicitação`}
         component={
           <ApproveReproveRequest
             request={solicitacao}
