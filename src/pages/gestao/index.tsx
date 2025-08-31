@@ -25,8 +25,8 @@ type ModalType = "create" | "edit" | "delete" | null;
 
 /**
  * @todo Melhorar estrutura e performance do componente "gestao". Esse componente deve apenas renderizar elementos, e não validar, formatar e filtrar.
- * @param context 
- * @returns 
+ * @param context
+ * @returns
  */
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

@@ -24,8 +24,11 @@ interface CreateUserFormComponentProps {
   submitButtonLabel: string;
 }
 
-const CreateEditUserFormComponent: FC<CreateUserFormComponentProps> = ({ onClose, user,
-  submitButtonLabel, }) => {
+const CreateEditUserFormComponent: FC<CreateUserFormComponentProps> = ({
+  onClose,
+  user,
+  submitButtonLabel,
+}) => {
   const [login, setLogin] = useState("");
   const [name, setName] = useState("");
   const [role, setRole] = useState<string>("");
@@ -37,7 +40,12 @@ const CreateEditUserFormComponent: FC<CreateUserFormComponentProps> = ({ onClose
   const userService = new UserService();
 
   const roleOptions = [
-    { label: "Administrador", value: "ROLE_ADMIN", icon: faGraduationCap, color: "black" },
+    {
+      label: "Administrador",
+      value: "ROLE_ADMIN",
+      icon: faGraduationCap,
+      color: "black",
+    },
     { label: "Gestor", value: "ROLE_MANAGER", icon: faBuildingUser },
     { label: "Professor", value: "ROLE_TEACHER", icon: faFlaskVial },
   ];
@@ -55,8 +63,13 @@ const CreateEditUserFormComponent: FC<CreateUserFormComponentProps> = ({ onClose
       return;
     }
 
-    const selectedRole = roleOptions.find(option => option.value === role);
-    const roleId = selectedRole?.value === "ROLE_ADMIN" ? 1 : selectedRole?.value === "ROLE_MANAGER" ? 3 : 2;
+    const selectedRole = roleOptions.find((option) => option.value === role);
+    const roleId =
+      selectedRole?.value === "ROLE_ADMIN"
+        ? 1
+        : selectedRole?.value === "ROLE_MANAGER"
+        ? 3
+        : 2;
 
     try {
       if (user) {
@@ -78,8 +91,7 @@ const CreateEditUserFormComponent: FC<CreateUserFormComponentProps> = ({ onClose
         });
         setUsers();
         onClose();
-      }
-      else{
+      } else {
         const userData = {
           usernameUser: name,
           login: login,
@@ -103,7 +115,6 @@ const CreateEditUserFormComponent: FC<CreateUserFormComponentProps> = ({ onClose
         setUsers();
         onClose();
       }
-      
     } catch (error) {
       console.error("Error creating user:", error);
       toast({
@@ -120,26 +131,32 @@ const CreateEditUserFormComponent: FC<CreateUserFormComponentProps> = ({ onClose
       const fetchUser = async () => {
         try {
           const userData = userService.getById(user.id);
-          setLogin((await userData).login)
-          setName((await userData).usernameUser)
-          setRole((await userData).roles[0].authority)
+          setLogin((await userData).login);
+          setName((await userData).usernameUser);
+          setRole((await userData).roles[0].authority);
         } catch (error) {
           toast({
             title: "Erro",
-            description: "Falha ao carregar usuário. Por favor, tente novamente.",
+            description:
+              "Falha ao carregar usuário. Por favor, tente novamente.",
             status: "error",
             position: "top-right",
           });
         }
-      }
+      };
 
       fetchUser();
     }
-  }, [])
+  }, []);
 
   const canSubmit = user
     ? login && name && role
-    : login && name && role && password && confirmPassword && password === confirmPassword;
+    : login &&
+      name &&
+      role &&
+      password &&
+      confirmPassword &&
+      password === confirmPassword;
 
   return (
     <div className="space-create-user-container">
@@ -194,7 +211,9 @@ const CreateEditUserFormComponent: FC<CreateUserFormComponentProps> = ({ onClose
               </FormControl>
 
               <FormControl
-                isInvalid={confirmPassword === "" || password !== confirmPassword}
+                isInvalid={
+                  confirmPassword === "" || password !== confirmPassword
+                }
               >
                 <FormLabel>Confirme a senha</FormLabel>
                 <Input
@@ -218,7 +237,7 @@ const CreateEditUserFormComponent: FC<CreateUserFormComponentProps> = ({ onClose
           <Button variant={"outline"} mr={3} onClick={onClose}>
             Cancelar
           </Button>
-          <Button variant={'submit'} type="submit" isDisabled={!canSubmit}>
+          <Button variant={"submit"} type="submit" isDisabled={!canSubmit}>
             {submitButtonLabel}
           </Button>
         </div>

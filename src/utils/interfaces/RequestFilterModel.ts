@@ -1,4 +1,5 @@
 export interface RequestFilterModel {
-  orderBy: string,
-  status: string,
+  title?: string,
+  status?: string,
+  orderByDateAsc?: string
 }

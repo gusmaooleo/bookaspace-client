@@ -13,7 +13,12 @@ import "../app/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const showTopBar = !["/login", "/error", "/iforgot"].includes(router.pathname);
+  const showTopBar = ![
+    "/login",
+    "/error",
+    "/iforgot",
+    "/iforgot/recover-password/[[...token]]",
+  ].includes(router.pathname);
 
   useEffect(() => {
     addLocale("pt-br", ptbr);

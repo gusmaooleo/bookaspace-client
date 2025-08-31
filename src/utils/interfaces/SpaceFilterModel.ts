@@ -1,5 +1,6 @@
 export interface SpaceFilterModel {
-  type: string,
-  spaceName: string,
-  spaceCapacity: string,
+  type?: string,
+  name?: string,
+  capacity?: string,
+  availability?: string,
 };

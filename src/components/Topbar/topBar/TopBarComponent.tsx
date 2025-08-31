@@ -25,10 +25,14 @@ const TopBarComponent = () => {
 
   useEffect(() => {
     console.log(router.pathname);
-    const userData = JSON.parse(
-      localStorage.getItem("user_data") || "{ id: -1 }"
-    );
-    setUserData(userData);
+    try {
+      const userData = JSON.parse(
+        localStorage.getItem("user_data") || "{ id: -1 }"
+      );
+      setUserData(userData);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   const handleLogout = () => {

@@ -3,7 +3,7 @@ import './index.css'
 
 const TextLogoComponent = () => {
   return (
-    <Image src='images/text-logo.svg' alt='text-logo' width={70} height={70} className='text-logo-c' />
+    <Image src='/images/text-logo.svg' alt='text-logo' width={70} height={70} className='text-logo-c' />
   );
 }
 

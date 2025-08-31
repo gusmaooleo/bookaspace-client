@@ -20,6 +20,7 @@ const Solicitacoes = () => {
 
   const [orderBy, setOrderBy] = useState<string>("");
   const [status, setStatus] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const { getUsers } = useUsers();
 
   const requestsService = new RequestService();
@@ -47,10 +48,12 @@ const Solicitacoes = () => {
 
   const handleFilter = async () => {
     const filter: RequestFilterModel = {
-      orderBy: orderBy,
+      title: title,
+      orderByDateAsc: orderBy,
       status: status
     }
-    if (filter.orderBy === "" && filter.status === "") {
+    
+    if (filter.orderByDateAsc === "" && filter.status === "" && filter.title === "") {
       formatBeforeDisplay(getRequests);
     } else {
       const data = await requestsService.requestFilter(filter);
@@ -76,6 +79,7 @@ const Solicitacoes = () => {
         filtersComponent={
           <RequestFilter 
             orderByValue={setOrderBy}
+            titleValue={setTitle}
             statusValue={setStatus}
             triggerFilter={handleFilter}
           />

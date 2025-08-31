@@ -3,8 +3,8 @@ import { Option } from "../interfaces/CustomSelect";
 import { Column } from "../interfaces/ReusableTable";
 
 export const orderByOption: Option[] = [
-  { label: "Mais antigo", value: 'asc', icon: faArrowDown },
-  { label: "Mais recente", value: 'desc', icon: faArrowUp },
+  { label: "Mais antigo", value: 'true', icon: faArrowDown },
+  { label: "Mais recente", value: 'false', icon: faArrowUp },
 ];
 
 export const statusOption: Option[] = [

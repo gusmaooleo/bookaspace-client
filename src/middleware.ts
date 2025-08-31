@@ -3,7 +3,16 @@ import type { NextRequest } from 'next/server';
 import UserService from './services/user/UserService';
 
 // Define as rotas públicas
-const PUBLIC_PATHS = ['/login', '/error', '/iforgot'];
+const PUBLIC_PATHS = [
+  "/login",
+  "/error",
+  "/iforgot",
+];
+
+
+const isPublicPath = (pathname: string) =>
+  isPublicFile(pathname) ||
+  PUBLIC_PATHS.some(p => pathname === p || pathname.startsWith(`${p}/`));
 
 const isPublicFile = (pathname: string) =>
   pathname.startsWith('/_next') ||
@@ -14,7 +23,7 @@ export async function middleware(req: NextRequest) {
   const userService = new UserService();
 
   // Se a rota for pública, permite o acesso
-  if (PUBLIC_PATHS.includes(pathname) || isPublicFile(pathname)) {
+  if (isPublicPath(pathname)) {
     return NextResponse.next();
   }
 

@@ -19,3 +19,9 @@ export const typeOption: Option[] = [
   { label: "Auditório", icon: faBuildingUser, value: "AUDITORIUM" },
   { label: "Laboratório", icon: faFlaskVial, value: "LABORATORY" },
 ]
+
+export const availabilityOption: Option[] = [
+  { label: "Todos", value: "" },
+  { label: "Disponível", value: "true" },
+  { label: "Indisponível", value: "false" },
+]

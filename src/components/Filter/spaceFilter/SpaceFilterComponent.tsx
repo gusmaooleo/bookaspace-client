@@ -3,11 +3,12 @@ import { Button, Input } from '@chakra-ui/react';
 import { InputNumber } from 'primereact/inputnumber';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
-import { typeOption } from '@/utils/formatters/SpaceTableConfig';
+import { availabilityOption, typeOption } from '@/utils/formatters/SpaceTableConfig';
 import './index.css'
 
 interface SpaceFilterInterface {
   typeValue: React.Dispatch<React.SetStateAction<string>>;
+  availabilityValue: React.Dispatch<React.SetStateAction<string>>;
   spaceNameValue: React.Dispatch<React.SetStateAction<string>>;
   spaceCapacityValue: React.Dispatch<React.SetStateAction<string>>;
   triggerFilter: () => void;
@@ -15,6 +16,7 @@ interface SpaceFilterInterface {
 
 const SpaceFilterComponent = ({
   typeValue,
+  availabilityValue,
   spaceCapacityValue,
   spaceNameValue,
   triggerFilter,
@@ -22,6 +24,7 @@ const SpaceFilterComponent = ({
   return (
     <div className="flex flex-row gap-3">
       <CustomSelect options={typeOption} setValue={typeValue} />
+      <CustomSelect options={availabilityOption} setValue={availabilityValue} />
       <Input
         variant={"ns_light"}
         placeholder="Nome do espaço"

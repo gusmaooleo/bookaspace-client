@@ -12,8 +12,8 @@ import SpaceFilterComponent from "@/components/Filter/spaceFilter/SpaceFilterCom
 import ReusableTable from "@/components/Shared/genericTable/ReusableTable";
 import DynamicModal from "@/components/Shared/genericModal/DynamicModal";
 import SpaceService from "@/services/space/SpaceService";
-import "./styles.css";
 import { useUserSession } from "@/contexts/userContext";
+import "./styles.css";
 
 const Espacos: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -23,7 +23,8 @@ const Espacos: React.FC = () => {
   const [totalRecords, setTotalRecords] = useState<number>(data.length);
   const { getSpaces } = useSpace();
 
-  const [tipo, setTipo] = useState<string>("");
+  const [type, setType] = useState<string>("");
+  const [availability, setAvilability] = useState<string>("");
   const [spaceName, setSpaceName] = useState<string>("");
   const [spaceCapacity, setSpaceCapacity] = useState<string>("");
   const { user } = useUserSession();
@@ -33,12 +34,13 @@ const Espacos: React.FC = () => {
 
   const handleFilter = async () => {
     const filter: SpaceFilterModel = {
-      type: tipo,
-      spaceName: spaceName,
-      spaceCapacity: spaceCapacity,
+      type,
+      name: spaceName,
+      capacity: spaceCapacity,
+      availability
     };
 
-    if (filter.type === '' && filter.spaceName === '' && filter.spaceCapacity === '') {
+    if (filter.type === '' && filter.name === '' && filter.capacity === '' && filter.availability === '') {
       setData(getSpaces);
     } else {
       const data = await spaceService.spaceFilter(filter);
@@ -83,7 +85,8 @@ const Espacos: React.FC = () => {
 
         filtersComponent={
           <SpaceFilterComponent
-            typeValue={setTipo}
+            typeValue={setType}
+            availabilityValue={setAvilability}
             spaceCapacityValue={setSpaceCapacity}
             spaceNameValue={setSpaceName}
             triggerFilter={handleFilter}
